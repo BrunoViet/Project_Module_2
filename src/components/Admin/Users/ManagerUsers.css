@@ -1,0 +1,40 @@
+#customers {
+    font-family    : Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width          : 100%;
+}
+
+#customers td,
+#customers th {
+    border : 1px solid #ac3b9d;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #c0ba14;
+}
+
+#customers tr:nth-child(odd) {
+    background-color: #c05314;
+}
+
+#customers tr:hover {
+    background-color: #8d9412;
+}
+
+#customers th {
+    padding-top     : 12px;
+    padding-bottom  : 12px;
+    text-align      : left;
+    background-color: #04AA6D;
+    color           : white;
+}
+
+.content {
+    background-image   : url("https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045-2.jpg");
+    height             : 100vh;
+    max-width          : 100%;
+    background-repeat  : no-repeat;
+    background-position: center center;
+    background-size    : cover;
+}

@@ -1,0 +1,107 @@
+{
+  "admin": [
+    {
+      "userName": "viet",
+      "password": "123123",
+      "email": "viet311@gmai.com",
+      "firstName": "viet",
+      "lastName": "viet",
+      "role": "Admin",
+      "avatar": "123123",
+      "createdAt": "7/5/2023",
+      "id": 1
+    },
+    {
+      "userName": "viet22",
+      "password": "123123",
+      "email": "viet311@gmail.com",
+      "firstName": "viet",
+      "lastName": "viet",
+      "role": "Admin",
+      "avatar": "123123",
+      "createdAt": "7/5/2023",
+      "id": 4
+    },
+    {
+      "userName": "viet333",
+      "password": "123123",
+      "email": "viettran@gmail.c",
+      "firstName": "123",
+      "lastName": "123",
+      "role": "Admin",
+      "avatar": "123123",
+      "createdAt": "7/5/2023",
+      "id": 5
+    }
+  ],
+  "product": [
+    {
+      "productName": "abc1211231",
+      "productCode": "123123123123123",
+      "category": "ACER",
+      "createAt": "7/10/2023",
+      "price": "12312312123",
+      "imgUrl": "1231231231231",
+      "description": "123123123",
+      "id": 1
+    },
+    {
+      "productName": "123123",
+      "productCode": "123123123",
+      "createAt": "7/10/2023",
+      "price": "123123",
+      "imgUrl": "123123",
+      "description": "123123",
+      "id": 2
+    },
+    {
+      "productName": "123123",
+      "productCode": "123123123",
+      "createAt": "7/10/2023",
+      "price": "123123",
+      "imgUrl": "123123",
+      "description": "123123",
+      "id": 3
+    },
+    {
+      "productName": "asdasd",
+      "productCode": "asdasd",
+      "createAt": "7/10/2023",
+      "price": "1212312",
+      "imgUrl": "1231123132123",
+      "description": "123123123",
+      "id": 4
+    },
+    {
+      "productName": "asdasd",
+      "productCode": "12123",
+      "createAt": "7/10/2023",
+      "price": "21123",
+      "imgUrl": "123123",
+      "description": "asdasd",
+      "id": 5
+    }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "name": "DELL"
+    },
+    {
+      "id": 2,
+      "name": "ASUS"
+    },
+    {
+      "id": 3,
+      "name": "ACER"
+    },
+    {
+      "id": 4,
+      "name": "ThinkPad"
+    },
+    {
+      "id": 5,
+      "name": "Macbook"
+    }
+  ]
+}
