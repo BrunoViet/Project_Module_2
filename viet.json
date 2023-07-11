@@ -32,6 +32,17 @@
       "avatar": "123123",
       "createdAt": "7/5/2023",
       "id": 5
+    },
+    {
+      "userName": "noqivyjo",
+      "password": "Pa$$w0rd!",
+      "email": "qegahuge@mailinator.com",
+      "firstName": "Cody",
+      "lastName": "Ewing",
+      "role": "User",
+      "avatar": "Voluptate qui cum co",
+      "createdAt": "7/11/2023",
+      "id": 6
     }
   ],
   "product": [
@@ -41,46 +52,70 @@
       "category": "ACER",
       "createAt": "7/10/2023",
       "price": "12312312",
-      "imgUrl": "ascasd",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/296847/dell-inspiron-15-3520-i5-n5i5122w1-191222-091429-600x600.jpg",
       "description": "sacasd",
       "id": 1
+    },
+    {
+      "productName": "123123",
+      "productCode": "1233123",
+      "category": "ACER",
+      "createAt": "7/10/2023",
+      "price": "12312312",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/296847/dell-inspiron-15-3520-i5-n5i5122w1-191222-091429-600x600.jpg",
+      "description": "sacasd",
+      "id": 2
+    },
+    {
+      "productName": "123123",
+      "productCode": "1233123",
+      "category": "ACER",
+      "createAt": "7/10/2023",
+      "price": "12312312",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/296847/dell-inspiron-15-3520-i5-n5i5122w1-191222-091429-600x600.jpg",
+      "description": "sacasd",
+      "id": 3
     }
   ],
   "category": [
     {
       "id": 1,
-      "name": "DELL"
+      "name": "DELL",
+      "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Dell_Logo.svg/1200px-Dell_Logo.svg.png",
+      "original": "Đài Loan"
     },
     {
       "id": 2,
-      "name": "ASUS"
+      "name": "ASUS",
+      "imgUrl": "https://dlcdnimgs.asus.com/websites/global/Sno/79183.jpg",
+      "original": "Hoa Kì"
     },
     {
       "id": 3,
-      "name": "ACER"
+      "name": "ACER",
+      "original": "Đài Loan",
+      "imgUrl": "data:image/jpeg;base64,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"
     },
     {
       "id": 4,
-      "name": "ThinkPad"
+      "name": "ThinkPad",
+      "original": "Nhật Bản",
+      "imgUrl": "https://3dwarehouse.sketchup.com/warehouse/v1.0/content/public/f5e6b96c-76cd-476f-939d-2ade31e6ad1b"
     },
     {
       "id": 5,
-      "name": "Macbook"
+      "name": "Macbook",
+      "original": "Hoa Kì",
+      "imgUrl": "https://banner2.cleanpng.com/20180531/lpw/kisspng-apple-logo-macbook-pro-apple-photos-5b0fbb08b144b1.6833765715277575767261.jpg"
+    },
+    {
+      "id": 6,
+      "name": "MSI",
+      "original": "Đài Loan",
+      "imgUrl": "https://cdn.tgdd.vn/Files/2017/06/18/994072/laptop-msi-cua-nuoc-nao-co-tot-khong-co-nen-mua-kh.png"
     }
   ],
   "order": [
-    {
-      "id": 1,
-      "sku": "ASUS1",
-      "name": "van a",
-      "price": "12312312",
-      "quantity": "10",
-      "total": 123123120,
-      "createAt": "7/10/2023",
-      "status": "Đã xác nhận",
-      "imgUrl": "ascasd",
-      "phone": "123123123",
-      "address": "DN"
-    }
+    
   ]
 }

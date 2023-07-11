@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import Header from "../../Header/Header"
 import "./ManagerProducts.css"
 import { useState, useEffect } from "react"
-import { addProducttoList } from "../../../actions/productActions"
+import { addProducttoList } from "../../../actions/cartActions"
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

@@ -7,12 +7,20 @@ import "./App.css"
 import ManagerProducts from "./components/Admin/Products/ManagerProducts";
 import ManagerUsers from "./components/Admin/Users/ManagerUsers";
 import ManageOrder from "./components/Admin/Order/ManageOrder";
+import UserHome from "./components/User/UserHome";
+import UserLogin from "./components/User/UserLogin";
+import UserRegister from "./components/User/UserRegister";
+import CartUser from "./components/User/Cart/CartUser";
 
 function App() {
 
   return (
     <>
       <Routes>
+        <Route path="/" element={<UserHome />} />
+        <Route path="/cart" element={<CartUser />} />
+        <Route path="/userlogin" element={<UserLogin />} />
+        <Route path="/userregister" element={<UserRegister />} />
         <Route path="/home" element={<ManagerUsers />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

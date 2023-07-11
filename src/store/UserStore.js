@@ -1,10 +1,10 @@
 import { createStore, combineReducers } from "redux"
 import { userReducers } from "../reducers/UserReducers"
-import { productReducers } from "../reducers/ProductReducers"
+import { cartReducers } from "../reducers/CartReducers"
 export const fullStore = combineReducers({
 
     user: userReducers,
-    products: productReducers
+    cart: cartReducers
 })
 
 const userStore = createStore(fullStore)
