@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./App.css"
 import ManagerProducts from "./components/Admin/Products/ManagerProducts";
 import ManagerUsers from "./components/Admin/Users/ManagerUsers";
+import ManageOrder from "./components/Admin/Order/ManageOrder";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ManagerProducts />} />
+        <Route path="/order" element={<ManageOrder />} />
       </Routes>
       <ToastContainer />
     </>

@@ -25,3 +25,10 @@ export const getUserLoginInfo = (data) => {
         payload: data
     }
 }
+
+export const logOutUserLogin = (data) => {
+    return {
+        type: "LOGOUT_USER",
+        payload: data
+    }
+}

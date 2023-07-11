@@ -10,29 +10,32 @@ import { getUserLoginInfo } from "../../../actions/userAction"
 import { useNavigate } from "react-router"
 
 function ManagerProducts() {
+    const productRedux = useSelector(state => state.products.listProducts)
     const [productName, setProductName] = useState()
     const [productCode, setProductCode] = useState()
     const [category, setCategory] = useState()
-    const [createAt, setCreatedAt] = useState(new Date().toLocaleDateString())
+    const [createAt, setCreatedAt] = useState(new Date())
     const [price, setPrice] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [description, setDescription] = useState()
     const [listProducts, setListProducts] = useState([])
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [isChanged, setIsChanged] = useState(false)
     const [id, setId] = useState()
     let selectedProduct = []
     const [isEdit, setIsEdit] = useState(false)
-    const navigate = useNavigate()
+
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
     const userLoginInfo = useSelector(state => state.user.listUsers)
     useEffect(() => {
         dispatch(getUserLoginInfo(localStorageUser))
     }, [])
 
-    if (!userLoginInfo) {
+    if (!localStorageUser) {
         navigate("/login")
     }
+
     useEffect(() => {
         axios.get("http://localhost:4000/product")
             .then(function (response) {
@@ -46,7 +49,6 @@ function ManagerProducts() {
     }, [isChanged])
 
     const handleAdd = () => {
-        setIsEdit(false)
         setIsChanged(!isChanged)
         axios.post("http://localhost:4000/product", {
             productName: productName,
@@ -65,12 +67,18 @@ function ManagerProducts() {
                 toast.error("Something went wrong!")
             })
 
-        document.getElementById("container-form").reset();
-
+        // setProductName("")
+        // setProductCode("")
+        // setPrice("")
+        // setImgUrl("")
+        // setCategory("")
+        // setCreatedAt("")
+        // setDescription("")
+        // setId("")
     }
 
     const handleEdit = (id) => {
-        setIsEdit(true)
+        setIsEdit(!isEdit)
         listProducts.map(item => {
             if (item.id === id) {
                 setProductName(item.productName)
@@ -86,14 +94,21 @@ function ManagerProducts() {
     }
 
     const handleSaveEdit = () => {
-        setIsEdit(false)
+        setIsEdit(!isEdit)
         setIsChanged(!isChanged)
-
+        // setProductName("")
+        // setProductCode("")
+        // setPrice("")
+        // setImgUrl("")
+        // setCategory("")
+        // setCreatedAt("")
+        // setDescription("")
+        // setId("")
         axios.put(`http://localhost:4000/product/${id}`, {
             "productName": productName,
             "productCode": productCode,
             "category": category,
-            "createAt": new Date().toLocaleDateString(),
+            "createAt": createAt,
             "price": price,
             "imgUrl": imgUrl,
             "description": description,
@@ -104,7 +119,7 @@ function ManagerProducts() {
             })
             .catch((error) => { toast.error("Something went wrong!") })
 
-        document.getElementById("container-form").reset();
+
     }
 
     const handleDeleteProduct = (id) => {
@@ -118,7 +133,7 @@ function ManagerProducts() {
     }
 
     const handleDeleteAll = () => {
-        if (window.confirm("Bạn có chắc chắn muốn xóa tất cả người dùng này không?")) {
+        if (window.confirm("Bạn có chắc chắn muốn xóa tất cả sản phẩm này không?")) {
             selectedProduct.forEach(productId => {
                 axios.delete(`http://localhost:4000/product/${productId}`)
                     .then(function (response) {
@@ -129,7 +144,7 @@ function ManagerProducts() {
                     });
             })
         }
-        toast.success("Delete all users chosen successfully")
+        toast.success("Delete all product chosen successfully")
         selectedProduct = []
         setIsChanged(!isChanged)
     }
@@ -221,27 +236,26 @@ function ManagerProducts() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">{isEdit ? "Edit Products" : "Add Products to List"}</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">Add Products to List</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        {console.log(isEdit)}
                         <div className="modal-body">
-                            <form id="container-form">
+                            <form>
                                 <div className="mb-3">
                                     <label for="product-name" className="col-form-label">Tên sản phẩm:</label>
-                                    <input type="text" className="form-control" id="product-name" defaultValue={isEdit ? productName : ""}
+                                    <input type="text" className="form-control" id="product-name" defaultValue={productName}
                                         onChange={(e) => setProductName(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="sku" className="col-form-label">Mã sản phẩm:</label>
-                                    <input type="text" className="form-control" id="sku" defaultValue={isEdit ? productCode : ""}
+                                    <input type="text" className="form-control" id="sku" defaultValue={productCode}
                                         onChange={(e) => setProductCode(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="category" className="col-form-label">Phân loại sản phẩm:</label>
-                                    <select value={isEdit ? category : ""} className="form-control" id="category" onChange={(e) => setCategory(e.target.value)}>
+                                    <select value={category} className="form-control" id="category" onChange={(e) => setCategory(e.target.value)}>
                                         <option value="DELL" selected>DELL</option>
                                         <option value="ASUS">ASUS</option>
                                         <option value="ACER">ACER</option>
@@ -251,37 +265,34 @@ function ManagerProducts() {
                                 </div>
                                 <div className="mb-3">
                                     <label for="price" className="col-form-label">Đơn giá:</label>
-                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={isEdit ? price : ""}
+                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={price}
                                         onChange={(e) => setPrice(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="description" className="col-form-label">Mô tả:</label>
-                                    <textarea type="text" className="form-control" id="description" defaultValue={isEdit ? description : ""}
+                                    <textarea type="text" className="form-control" id="description" defaultValue={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                     ></textarea>
                                 </div>
                                 <div className="mb-3">
                                     <label for="image" className="col-form-label">Url Image:</label>
-                                    <input type="text" className="form-control" id="image" defaultValue={isEdit ? imgUrl : ""}
+                                    <input type="text" className="form-control" id="image" defaultValue={imgUrl}
                                         onChange={(e) => setImgUrl(e.target.value)}
                                     />
                                 </div>
 
                             </form>
                         </div>
-
                         <div className="modal-footer">
-                            {isEdit ? <button type="button" className="btn btn-success" data-bs-dismiss="modal"
+                            {isEdit ? <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
                                 onClick={handleSaveEdit}
                             >Edit Products</button> : <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
                                 onClick={handleAdd}
                             >Add Products</button>}
 
 
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
-                                onClick={() => setIsEdit(false)}
-                            >Cancel</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
                 </div>

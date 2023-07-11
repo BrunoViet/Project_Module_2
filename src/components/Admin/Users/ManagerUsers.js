@@ -30,7 +30,7 @@ function ManagerUsers() {
         dispatch(getUserLoginInfo(localStorageUser))
     }, [])
 
-    if (!userLoginInfo) {
+    if (!localStorageUser) {
         navigate("/login")
     }
     // const userRedux = useSelector(state => state.user.listUsers)

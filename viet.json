@@ -36,50 +36,14 @@
   ],
   "product": [
     {
-      "productName": "abc1211231",
-      "productCode": "123123123123123",
+      "productName": "123123",
+      "productCode": "1233123",
       "category": "ACER",
       "createAt": "7/10/2023",
-      "price": "12312312123",
-      "imgUrl": "1231231231231",
-      "description": "123123123",
+      "price": "12312312",
+      "imgUrl": "ascasd",
+      "description": "sacasd",
       "id": 1
-    },
-    {
-      "productName": "123123",
-      "productCode": "123123123",
-      "createAt": "7/10/2023",
-      "price": "123123",
-      "imgUrl": "123123",
-      "description": "123123",
-      "id": 2
-    },
-    {
-      "productName": "123123",
-      "productCode": "123123123",
-      "createAt": "7/10/2023",
-      "price": "123123",
-      "imgUrl": "123123",
-      "description": "123123",
-      "id": 3
-    },
-    {
-      "productName": "asdasd",
-      "productCode": "asdasd",
-      "createAt": "7/10/2023",
-      "price": "1212312",
-      "imgUrl": "1231123132123",
-      "description": "123123123",
-      "id": 4
-    },
-    {
-      "productName": "asdasd",
-      "productCode": "12123",
-      "createAt": "7/10/2023",
-      "price": "21123",
-      "imgUrl": "123123",
-      "description": "asdasd",
-      "id": 5
     }
   ],
   "category": [
@@ -102,6 +66,21 @@
     {
       "id": 5,
       "name": "Macbook"
+    }
+  ],
+  "order": [
+    {
+      "id": 1,
+      "sku": "ASUS1",
+      "name": "van a",
+      "price": "12312312",
+      "quantity": "10",
+      "total": 123123120,
+      "createAt": "7/10/2023",
+      "status": "Đã xác nhận",
+      "imgUrl": "ascasd",
+      "phone": "123123123",
+      "address": "DN"
     }
   ]
 }

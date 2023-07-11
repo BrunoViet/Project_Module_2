@@ -41,6 +41,13 @@ export const userReducers = (state = initialState, action) => {
                 ...state,
                 listUsers: state.listUsers
             }
+
+        case "LOGOUT_USER":
+            state.listUsers = null
+            return {
+                ...state,
+                listUsers: state.listUsers
+            }
         default:
             return state
     }

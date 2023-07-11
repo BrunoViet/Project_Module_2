@@ -9,6 +9,7 @@ function Header() {
 
     const handleLogout = () => {
         localStorage.removeItem('userLogin');
+
         navigate("/login")
     }
     return (
@@ -28,10 +29,7 @@ function Header() {
                                 <Link to="/products" className="nav-link">Manager Products</Link>
                             </li>
                             <li className="nav-item text-center">
-                                <Link to="/home" className="nav-link">Manager Order</Link>
-                            </li>
-                            <li className="nav-item text-center">
-                                <Link to="/home" className="nav-link">Manager Order Detail</Link>
+                                <Link to="/order" className="nav-link">Manager Order</Link>
                             </li>
                         </ul>
                         <h3 className="text-primary me-3">{userLogin ? `Hello ${userLogin.userName}!` : navigate("/login")}</h3>
