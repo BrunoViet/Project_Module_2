@@ -13,12 +13,11 @@ function ManageOrder() {
     const [name, setName] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [price, setPrice] = useState()
-    const [quantity, setQuantity] = useState()
     const [status, setStatus] = useState()
     const [phone, setPhone] = useState()
     const [address, setAddress] = useState()
-    const [createdAt, setCreatedAt] = useState()
-    
+    const [productName, setProductName] = useState()
+
     useEffect(() => {
         axios.get("http://localhost:4000/order")
             .then(function (response) {
@@ -73,16 +72,15 @@ function ManageOrder() {
             if (item.id === id) {
                 setName(item.name)
                 setCode(item.sku)
-                setPrice(item.price)
+                setPrice(item.totalPrice)
                 setImgUrl(item.imgUrl)
-                setQuantity(item.quantity)
-                setCreatedAt(item.createdAt)
                 setStatus(item.status)
                 setAddress(item.address)
                 setPhone(item.phone)
                 setId(item.id)
-                setCreatedAt(item.createAt)
+                setProductName(item.productName)
             }
+
         })
     }
 
@@ -93,14 +91,13 @@ function ManageOrder() {
             "id": id,
             "sku": code,
             "name": name,
-            "price": price,
-            "quantity": quantity,
-            "total": Number(price) * Number(quantity),
-            "createAt": createdAt,
+            "totalPrice": price,
+            "createAt": new Date().toLocaleDateString(),
             "status": status,
             "imgUrl": imgUrl,
             "phone": phone,
-            "address": address
+            "address": address,
+            "productName": productName
         })
             .then((response) => {
                 toast.success("Edit Order Successfully!")
@@ -126,8 +123,7 @@ function ManageOrder() {
                             <th>Customer Phone Number</th>
                             <th>Customer Address</th>
                             <th>Image</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
+                            <th>Total Price</th>
                             <th>Create At</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -145,15 +141,14 @@ function ManageOrder() {
                                     <>
                                         <tr key={index}>
                                             <td>{item.id}</td>
-                                            <td>{item.sku}</td>
+                                            <td>{item.sku[0]}</td>
                                             <td>{item.name}</td>
                                             <td>{item.phone}</td>
                                             <td>{item.address}</td>
                                             <td>
-                                                <img src={item.imgUrl} alt="Ảnh bị hư rồi" height={120} width={200} />
+                                                <img src={item.imgUrl[0]} alt="Ảnh bị hư rồi" height={120} width={200} />
                                             </td>
-                                            <td>{item.price}</td>
-                                            <td>{item.quantity}</td>
+                                            <td>{item.totalPrice ? (item.totalPrice).toLocaleString() : item.price} đ</td>
                                             <td>{item.createAt}</td>
                                             <td>{item.status}</td>
                                             <td><button className="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -181,7 +176,7 @@ function ManageOrder() {
             </div>
 
             {/* Modal */}
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -191,45 +186,51 @@ function ManageOrder() {
                         <div className="modal-body">
                             <form>
                                 <div className="mb-3">
-                                    <label for="product-name" className="col-form-label">Mã sản phẩm:</label>
-                                    <input type="text" className="form-control" id="product-name" defaultValue={code}
-                                        onChange={(e) => setCode(e.target.value)}
-                                    />
+                                    <label for="product-name" className="col-form-label">Tên sản phẩm:</label>
+                                    {productName ? productName.map(item => {
+                                        return (
+                                            <>
+                                                <input type="text" className="form-control mt-2" id="product-name" defaultValue={item}
+                                                    disabled />
+                                            </>
+                                        )
+                                    }) : ""}
+
                                 </div>
                                 <div className="mb-3">
                                     <label for="sku" className="col-form-label">Tên khách hàng:</label>
                                     <input type="text" className="form-control" id="sku" defaultValue={name}
-                                        onChange={(e) => setName(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="price" className="col-form-label">Số điện thoại:</label>
                                     <input type="text" className="form-control" id="price" defaultValue={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="description" className="col-form-label">Địa chỉ:</label>
                                     <input type="text" className="form-control" id="description" defaultValue={address}
-                                        onChange={(e) => setAddress(e.target.value)}
+                                        disabled
                                     />
                                 </div>
-                                <div className="mb-3">
-                                    <label for="image" className="col-form-label">Url Image:</label>
-                                    <input type="text" className="form-control" id="image" defaultValue={imgUrl}
-                                        onChange={(e) => setImgUrl(e.target.value)}
-                                    />
+                                <div className="mb-3" >
+                                    <label>Ảnh sản phẩm</label>
+                                    <div style={{ display: "flex", gap: "10px" }} className="mt-2">
+                                        {imgUrl ? imgUrl.map(item => {
+                                            return (
+                                                <>
+                                                    <img src={item} alt="Ảnh lỗi rồi" height={100} width="130px" />
+                                                </>
+                                            )
+                                        }) : ""}
+                                    </div>
                                 </div>
                                 <div className="mb-3">
                                     <label for="price" className="col-form-label">Giá:</label>
                                     <input type="text" className="form-control" id="price" defaultValue={price}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label for="quantity" className="col-form-label">Số lượng:</label>
-                                    <input type="number" className="form-control" id="quantity" defaultValue={quantity}
-                                        onChange={(e) => setQuantity(e.target.value)}
+                                        disabled
                                     />
                                 </div>
                                 <div>

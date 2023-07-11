@@ -7,7 +7,7 @@ export const cartReducers = (state = initialState, action) => {
         case "ADD_PRODUCT":
             for (let i = 0; i < state.listProducts.length; i++) {
                 if (state.listProducts[i].id == action.payload.id) {
-                    state.listProducts[i].quantity += 1
+                    state.listProducts[i].quantity += action.payload.quantity
                     return {
                         ...state,
                         listProducts: [...state.listProducts]
@@ -23,6 +23,11 @@ export const cartReducers = (state = initialState, action) => {
             return {
                 ...state,
                 listProducts: newListProducts
+            }
+        case "RESET_CART":
+            return {
+                ...state,
+                listProducts: []
             }
         default:
             return state

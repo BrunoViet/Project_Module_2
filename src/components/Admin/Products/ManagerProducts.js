@@ -10,7 +10,7 @@ import { getUserLoginInfo } from "../../../actions/userAction"
 import { useNavigate } from "react-router"
 
 function ManagerProducts() {
-    const productRedux = useSelector(state => state.products.listProducts)
+
     const [productName, setProductName] = useState()
     const [productCode, setProductCode] = useState()
     const [category, setCategory] = useState()
@@ -27,10 +27,6 @@ function ManagerProducts() {
     const [isEdit, setIsEdit] = useState(false)
 
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
-    const userLoginInfo = useSelector(state => state.user.listUsers)
-    useEffect(() => {
-        dispatch(getUserLoginInfo(localStorageUser))
-    }, [])
 
     if (!localStorageUser) {
         navigate("/login")
@@ -67,14 +63,7 @@ function ManagerProducts() {
                 toast.error("Something went wrong!")
             })
 
-        // setProductName("")
-        // setProductCode("")
-        // setPrice("")
-        // setImgUrl("")
-        // setCategory("")
-        // setCreatedAt("")
-        // setDescription("")
-        // setId("")
+        document.getElementById("form").reset()
     }
 
     const handleEdit = (id) => {
@@ -143,10 +132,12 @@ function ManagerProducts() {
                         console.log(error);
                     });
             })
+            toast.success("Delete all product chosen successfully")
+            selectedProduct = []
+            setIsChanged(!isChanged)
         }
-        toast.success("Delete all product chosen successfully")
-        selectedProduct = []
-        setIsChanged(!isChanged)
+
+
     }
 
     const handleChooseIdToDelete = (event) => {
@@ -232,7 +223,9 @@ function ManagerProducts() {
 
 
             {/* Modal */}
-            <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static"
+                data-bs-keyboard="false"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -240,16 +233,16 @@ function ManagerProducts() {
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form id="form">
                                 <div className="mb-3">
                                     <label for="product-name" className="col-form-label">Tên sản phẩm:</label>
-                                    <input type="text" className="form-control" id="product-name" defaultValue={productName}
+                                    <input type="text" className="form-control" id="product-name" defaultValue={isEdit ? productName : ''}
                                         onChange={(e) => setProductName(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="sku" className="col-form-label">Mã sản phẩm:</label>
-                                    <input type="text" className="form-control" id="sku" defaultValue={productCode}
+                                    <input type="text" className="form-control" id="sku" defaultValue={isEdit ? productCode : ''}
                                         onChange={(e) => setProductCode(e.target.value)}
                                     />
                                 </div>
@@ -265,19 +258,19 @@ function ManagerProducts() {
                                 </div>
                                 <div className="mb-3">
                                     <label for="price" className="col-form-label">Đơn giá:</label>
-                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={price}
+                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={isEdit ? price : ""}
                                         onChange={(e) => setPrice(e.target.value)}
                                     />
                                 </div>
                                 <div className="mb-3">
                                     <label for="description" className="col-form-label">Mô tả:</label>
-                                    <textarea type="text" className="form-control" id="description" defaultValue={description}
+                                    <textarea type="text" className="form-control" id="description" defaultValue={isEdit ? description : ''}
                                         onChange={(e) => setDescription(e.target.value)}
                                     ></textarea>
                                 </div>
                                 <div className="mb-3">
                                     <label for="image" className="col-form-label">Url Image:</label>
-                                    <input type="text" className="form-control" id="image" defaultValue={imgUrl}
+                                    <input type="text" className="form-control" id="image" defaultValue={isEdit ? imgUrl : ''}
                                         onChange={(e) => setImgUrl(e.target.value)}
                                     />
                                 </div>

@@ -11,3 +11,9 @@ export const deleteProduct = (id) => {
         payload: id
     }
 }
+
+export const resetCart = () => {
+    return {
+        type: "RESET_CART",
+    }
+}

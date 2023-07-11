@@ -11,6 +11,7 @@ import UserHome from "./components/User/UserHome";
 import UserLogin from "./components/User/UserLogin";
 import UserRegister from "./components/User/UserRegister";
 import CartUser from "./components/User/Cart/CartUser";
+import UserDetail from "./components/User/UserDetail";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<UserHome />} />
+        <Route path="/detail/:id" element={<UserDetail />} />
         <Route path="/cart" element={<CartUser />} />
         <Route path="/userlogin" element={<UserLogin />} />
         <Route path="/userregister" element={<UserRegister />} />

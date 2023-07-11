@@ -47,8 +47,12 @@ function UserHome() {
     }, [])
 
     const handleAddToCart = (item) => {
-        dispatch(addProductToCart({ ...item, quantity: quantity }))
+        dispatch(addProductToCart({ ...item, quantity: Number(quantity) }))
         navigate('/cart')
+    }
+
+    const handleShowDetails = (id) => {
+        navigate(`/detail/${id}`)
     }
     return (
         <>
@@ -118,7 +122,9 @@ function UserHome() {
                                             onChange={(e) => setQuantity(e.target.value)}
                                             type="number" min={1} className="input-group-text" /> </span>
                                     </div>
-                                    <Button variant="warning" className="me-4" style={{ marginLeft: "90px" }} >Chi tiết</Button>
+                                    <Button variant="warning" className="me-4" style={{ marginLeft: "90px" }}
+                                        onClick={() => handleShowDetails(item.id)}
+                                    >Chi tiết</Button>
                                     <Button variant="primary" onClick={() => handleAddToCart(item)} disabled={quantity ? false : true}>Đặt hàng</Button>
                                 </Card.Body>
                             </Card>

@@ -4,7 +4,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Header() {
-    const userLogin = useSelector(state => state.user.listUsers)
+    const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
+    console.log(localStorageUser)
+    if (!localStorageUser) {
+        navigate("/login")
+    }
+
     const navigate = useNavigate()
 
     const handleLogout = () => {
@@ -16,7 +21,7 @@ function Header() {
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="/home">Admin</a>
+                    <a className="navbar-brand" href="/">Home</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -32,7 +37,7 @@ function Header() {
                                 <Link to="/order" className="nav-link">Manager Order</Link>
                             </li>
                         </ul>
-                        <h3 className="text-primary me-3">{userLogin ? `Hello ${userLogin.userName}!` : navigate("/login")}</h3>
+                        <h3 className="text-primary me-3">{localStorageUser ? `Hello ${localStorageUser.userName}!` : navigate("/login")}</h3>
                         <button className="btn btn-success me-5" onClick={handleLogout}>
                             Logout
                         </button>

@@ -2,34 +2,40 @@ import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/Header"
 import Table from 'react-bootstrap/Table';
 import { useState, useEffect } from "react";
-import { deleteProduct } from "../../../actions/cartActions";
+import { deleteProduct, resetCart } from "../../../actions/cartActions";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router";
 
 function CartUser() {
-    const cartList = useSelector(state => state.cart.listProducts)
+    let cartList = useSelector(state => state.cart.listProducts)
     const [quantity, setQuantity] = useState(1)
+    const [userName, setUserName] = useState()
+    const [userPhone, setUserPhone] = useState()
+    const [userAddress, setUserAddress] = useState()
     const dispatch = useDispatch()
     const [listOrder, setListOrder] = useState([])
     const navigate = useNavigate()
     let productCodeListCart = []
     let productNameListCart = []
     let productPriceListCart = []
+    let productImgListCart = []
     let totalPrice = 0
     cartList.map(item => {
         productPriceListCart.push(Number(item.quantity * item.price))
         productCodeListCart.push(item.productCode)
         productNameListCart.push(item.productName)
+        productImgListCart.push(item.imgUrl)
     })
 
     productPriceListCart.forEach(item => {
         totalPrice += item
     })
-    console.log(totalPrice)
+
     const handleDelete = (id) => {
         dispatch(deleteProduct(id))
+        toast.success("Xoá thành công!!")
     }
 
     useEffect(() => {
@@ -45,10 +51,19 @@ function CartUser() {
     }, [])
 
     const handleOrder = () => {
-
-        cartList.map(item => {
+        if (!userName && !userPhone && !userPhone) {
+            toast.error("Vui lòng điền đầy đủ thông tin!")
+        } else {
             axios.post("http://localhost:4000/order", {
-
+                sku: productCodeListCart,
+                name: userName,
+                phone: userPhone,
+                address: userAddress,
+                imgUrl: productImgListCart,
+                productName: productNameListCart,
+                createAt: new Date().toLocaleDateString(),
+                status: "Chờ xác nhận",
+                totalPrice: totalPrice
             })
                 .then(response => {
                     console.log(response)
@@ -56,8 +71,11 @@ function CartUser() {
                 .catch(error => {
                     console.log(error)
                 })
-        })
-        toast.success("Add new product successfully!");
+
+            toast.success("Đặt hàng thành công. Cảm ơn Quý khách!")
+            dispatch(resetCart())
+            navigate("/")
+        }
 
     }
 
@@ -105,10 +123,10 @@ function CartUser() {
                         })}
                     </tbody>
                 </Table>
-                <h2 className="text-center mb-3" style={{ fontWeight: "bold" }}>Tổng tiền phải thanh toán: {totalPrice}</h2>
+                <h2 className="text-center mb-3" style={{ fontWeight: "bold", color: "brown" }}>Tổng tiền phải thanh toán: {(totalPrice).toLocaleString()} đ</h2>
                 <div className="text-center mb-3">
                     <button className="btn btn-secondary me-3" onClick={handleRedirect}>Về trang chủ</button>
-                    <button className="btn btn-success" onClick={handleOrder}>Đặt hàng</button>
+                    <button className="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Đặt hàng</button>
                 </div>
             </div>
             <div className="footer">
@@ -133,6 +151,40 @@ function CartUser() {
                     Copyright © 2023 Laptop Shop - All rights reserved || Designed By: Tran Do Quoc Viet
                 </div>
             </div >
+
+
+            {/* Modal  */}
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Thông tin đặt hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label className="form-label mt-2">Họ và tên</label>
+                            <input type="text" className="form-control"
+                                onChange={(e) => setUserName(e.target.value)}
+                            />
+                            <label className="form-label mt-2">Số điện thoại</label>
+                            <input type="text" className="form-control"
+                                onChange={(e) => setUserPhone(e.target.value)}
+                            />
+                            <label className="form-label mt-2">Địa chỉ</label>
+                            <input type="text" className="form-control"
+                                onChange={(e) => setUserAddress(e.target.value)}
+                            />
+                            <h2>Tổng tiền phải thanh toán là {(totalPrice).toLocaleString()} đ</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                onClick={handleOrder}
+                            >Xác nhận</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

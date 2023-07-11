@@ -32,7 +32,7 @@ function Login() {
     const handleLogin = () => {
         let isLogin = false
         for (let i = 0; i < listUsers.length; i++) {
-            if (listUsers[i].userName === userName && listUsers[i].password === password) {
+            if (listUsers[i].userName === userName && listUsers[i].password === password && listUsers[i].role === "Admin") {
                 dispatch(getUserLoginInfo(listUsers[i]))
                 localStorage.setItem("userLogin", JSON.stringify(listUsers[i]))
                 isLogin = true
@@ -41,7 +41,7 @@ function Login() {
 
         }
         if (!isLogin) {
-            toast.error("Username not found: " + userName)
+            toast.error("Admin not found: " + userName)
         } else {
             navigate("/home")
         }

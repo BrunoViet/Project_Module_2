@@ -20,15 +20,10 @@ function ManagerUsers() {
     const [role, setRole] = useState()
     const [password, setPassword] = useState()
     const [isChanged, setIsChanged] = useState(false)
-    const [isSuccess, setIsSuccess] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let selectedUsers = []
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
-    const userLoginInfo = useSelector(state => state.user.listUsers)
-    useEffect(() => {
-        dispatch(getUserLoginInfo(localStorageUser))
-    }, [])
 
     if (!localStorageUser) {
         navigate("/login")
@@ -199,7 +194,8 @@ function ManagerUsers() {
             </div>
 
             {/* Modal */}
-            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

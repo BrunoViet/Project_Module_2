@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 function Header() {
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate()
-    let userNameLogin = userLogin.userName
+    let userNameLogin = userLogin ? userLogin.userName : ""
     const handleLogout = () => {
 
         localStorage.removeItem('user')
