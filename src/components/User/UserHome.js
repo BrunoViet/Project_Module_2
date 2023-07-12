@@ -10,6 +10,7 @@ import "./UserHome.css"
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../actions/cartActions";
+import { Link } from "react-router-dom";
 
 function UserHome() {
     const userLogin = JSON.parse(localStorage.getItem('user'));
@@ -53,6 +54,10 @@ function UserHome() {
 
     const handleShowDetails = (id) => {
         navigate(`/detail/${id}`)
+    }
+
+    const handleCategory=(name)=>{
+        navigate(`/category/${name}`)
     }
     return (
         <>
@@ -146,7 +151,7 @@ function UserHome() {
                                     <Card.Text style={{ fontSize: "20px", color: "blue", fontWeight: "bold" }}>
                                         Xuất xứ: {item.original}
                                     </Card.Text>
-                                    <Button variant="primary" style={{ marginLeft: "130px" }}>Sản phẩm</Button>
+                                    <Button variant="primary" style={{ marginLeft: "130px" }} onClick={()=>handleCategory(item.name)}>Sản phẩm</Button>
                                 </Card.Body>
                             </Card>
                         </>
