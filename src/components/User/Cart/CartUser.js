@@ -17,6 +17,7 @@ function CartUser() {
     const dispatch = useDispatch()
     const [listOrder, setListOrder] = useState([])
     const navigate = useNavigate()
+    const [isValid, setIsValid] = useState(false)
     let productCodeListCart = []
     let productNameListCart = []
     let productPriceListCart = []
@@ -51,8 +52,9 @@ function CartUser() {
     }, [])
 
     const handleOrder = () => {
-        if (!userName && !userPhone && !userPhone) {
+        if (!userName && !userPhone && !userAddress) {
             toast.error("Vui lòng điền đầy đủ thông tin!")
+            setIsValid(true)
         } else {
             axios.post("http://localhost:4000/order", {
                 sku: productCodeListCart,
@@ -75,6 +77,7 @@ function CartUser() {
             toast.success("Đặt hàng thành công. Cảm ơn Quý khách!")
             dispatch(resetCart())
             navigate("/")
+            setIsValid(false)
         }
 
     }
@@ -178,7 +181,7 @@ function CartUser() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            <button type="button" class="btn btn-primary" data-bs-dismiss={isValid ? "modal" : ""}
                                 onClick={handleOrder}
                             >Xác nhận</button>
                         </div>

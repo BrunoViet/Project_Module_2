@@ -116,8 +116,6 @@ function ManagerUsers() {
             let index = selectedUsers.indexOf(userId)
             selectedUsers.splice(index, 1);
         }
-
-        console.log(selectedUsers)
     }
     return (
         <>

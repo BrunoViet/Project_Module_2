@@ -35,7 +35,10 @@ function Register() {
     }, [])
 
     function isValidEmail(email) {
-        return pattern.test(email);
+        if (pattern.test(email)) {
+            return true
+        }
+        return false
     }
 
     const handleSetEmail = (e) => {
@@ -64,7 +67,7 @@ function Register() {
             toast.error("Mật khẩu phải chứa 6 kí tự trở lên")
         } else if (userName === "" && password === "") {
             toast.error("Vui lòng nhập đầy đủ thông tin")
-        } else if (email === "") {
+        } else if (email === "" && isValidEmail(email)) {
             toast.error("Vui lòng nhập lại email")
         } else {
             if (isValid == true) {

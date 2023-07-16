@@ -16,6 +16,8 @@ function UserHome() {
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const [listProduct, setListProduct] = useState([])
     const [listCategory, setListCategory] = useState([])
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
     const [quantity, setQuantity] = useState()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -47,6 +49,14 @@ function UserHome() {
             })
     }, [])
 
+    useEffect(() => {
+        // Tìm kiếm dữ liệu khi searchTerm thay đổi
+        const results = listProduct.filter((item) =>
+            item.productName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setSearchResults(results);
+    }, [searchTerm, listProduct]);
+
     const handleAddToCart = (item) => {
         dispatch(addProductToCart({ ...item, quantity: Number(quantity) }))
         navigate('/cart')
@@ -56,9 +66,13 @@ function UserHome() {
         navigate(`/detail/${id}`)
     }
 
-    const handleCategory=(name)=>{
+    const handleCategory = (name) => {
         navigate(`/category/${name}`)
     }
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
     return (
         <>
             <Header />
@@ -111,16 +125,19 @@ function UserHome() {
             <div className="text-center pb-3 pt-3 text-warning" style={{ background: "linear-gradient(#e66465, #9198e5)" }}>
                 <h1>Sản phẩm</h1>
             </div>
-            <div className="row" style={{ padding: "0 300px", background: "linear-gradient(to right, #fffbd5, #b20a2c)" }}>
-                {listProduct.map(item => {
+            <div style={{ marginLeft: "45%", marginTop: "5px", marginBottom: "5px" }}><input type="text" className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" /></div>
+            <div className="row" style={{ padding: "0 300px", background: "linear-gradient(to right, #fffbd5, #b20a2c)", maxHeight: "fit-content" }}>
+                {searchResults.map(item => {
                     return (
                         <>
                             <Card className="col-4 mb-3 mt-3" style={{ padding: "0 20px" }}>
                                 <Card.Img variant="top" src={item.imgUrl} height="300px" width="100px" />
                                 <Card.Body>
-                                    <Card.Title style={{ fontSize: "40px", fontWeight: "bold" }}>{item.productName}</Card.Title>
-                                    <Card.Text style={{ fontSize: "20px" }}>
-                                        {item.description}
+                                    <div>
+                                        <Card.Title style={{ fontSize: "40px", fontWeight: "bold" }}>{item.productName}</Card.Title>
+                                    </div>
+                                    <Card.Text style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
+                                        {item.price} đ
                                     </Card.Text>
                                     <div className="mb-2">
                                         Số lượng <span><input
@@ -131,6 +148,7 @@ function UserHome() {
                                         onClick={() => handleShowDetails(item.id)}
                                     >Chi tiết</Button>
                                     <Button variant="primary" onClick={() => handleAddToCart(item)} disabled={quantity ? false : true}>Đặt hàng</Button>
+
                                 </Card.Body>
                             </Card>
                         </>
@@ -151,7 +169,7 @@ function UserHome() {
                                     <Card.Text style={{ fontSize: "20px", color: "blue", fontWeight: "bold" }}>
                                         Xuất xứ: {item.original}
                                     </Card.Text>
-                                    <Button variant="primary" style={{ marginLeft: "130px" }} onClick={()=>handleCategory(item.name)}>Sản phẩm</Button>
+                                    <Button variant="primary" style={{ marginLeft: "130px" }} onClick={() => handleCategory(item.name)}>Sản phẩm</Button>
                                 </Card.Body>
                             </Card>
                         </>

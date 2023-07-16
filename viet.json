@@ -1,70 +1,26 @@
 {
   "admin": [
     {
+      "userName": "viet123123123",
+      "email": "ben@gmail.com",
+      "password": "123123",
+      "firstName": "ads",
+      "lastName": "asdj",
+      "role": "User",
+      "avatar": "123123",
+      "createdAt": "7/12/2023",
+      "id": 2
+    },
+    {
       "userName": "viet",
       "password": "123123",
-      "email": "viet311@gmai.com",
-      "firstName": "viet",
-      "lastName": "viet",
-      "role": "Admin",
-      "avatar": "123123",
-      "createdAt": "7/5/2023",
-      "id": 1
-    },
-    {
-      "userName": "viet22",
-      "password": "123123",
-      "email": "viet311@gmail.com",
-      "firstName": "viet",
-      "lastName": "viet",
-      "role": "Admin",
-      "avatar": "123123",
-      "createdAt": "7/5/2023",
-      "id": 4
-    },
-    {
-      "userName": "viet333",
-      "password": "123123",
-      "email": "viettran@gmail.c",
-      "firstName": "123",
-      "lastName": "123",
-      "role": "Admin",
-      "avatar": "123123",
-      "createdAt": "7/5/2023",
-      "id": 5
-    },
-    {
-      "userName": "noqivyjo",
-      "password": "Pa$$w0rd!",
-      "email": "qegahuge@mailinator.com",
-      "firstName": "Cody",
-      "lastName": "Ewing",
-      "role": "User",
-      "avatar": "Voluptate qui cum co",
-      "createdAt": "7/11/2023",
-      "id": 6
-    },
-    {
-      "userName": "ben",
-      "password": "123123",
-      "email": "ben@gmail.com",
-      "firstName": "Viet",
-      "lastName": "Tran",
-      "role": "User",
-      "avatar": "123123",
-      "createdAt": "7/11/2023",
-      "id": 7
-    },
-    {
-      "userName": "viet1",
-      "password": "123123",
-      "email": "a@gmail.com",
-      "firstName": "12312",
+      "email": "viet@gmail.com",
+      "firstName": "123123",
       "lastName": "123123",
-      "role": "User",
-      "avatar": "12312",
+      "role": "Admin",
+      "avatar": "123123",
       "createdAt": "7/12/2023",
-      "id": 8
+      "id": 3
     }
   ],
   "product": [
@@ -98,60 +54,6 @@
       "id": 3
     },
     {
-      "productName": "Laptop Lenovo ThinkPad E14 G4 R7 5825U/8GB/512GB/14\" FHD/Win 11",
-      "productCode": "TPE14",
-      "category": "ThinkPad",
-      "price": "18990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/11/638011026555853473_lenovo-thinkpad-e14-gen-4-den-1.jpg",
-      "description": "Lenovo ThinkPad E14 Gen 4 mang trên mình sức mạnh của bộ vi xử lý AMD Ryzen 7 5825U hiệu suất cao cùng các tính năng bảo mật hàng đầu trong một thiết kế mỏng nhẹ và bền bỉ, là chiếc laptop đáng tin cậy của bạn trong công việc.",
-      "id": 4
-    },
-    {
-      "productName": "MacBook Air 13 inch M1 2020 8CPU 7GPU 8GB/256GB ",
-      "productCode": "MAM1",
-      "category": "Macbook",
-      "price": "18990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/11/12/637407989603991120_mba-2020-silver-1.png",
-      "description": "Chiếc MacBook Air có hiệu năng đột phá nhất từ trước đến nay đã xuất hiện. Bộ vi xử lý Apple M1 hoàn toàn mới đưa sức mạnh của MacBook Air M1 13 inch 2020 vượt xa khỏi mong đợi người dùng, có thể chạy được những tác vụ nặng và thời lượng pin đáng kinh ngạc.",
-      "id": 5
-    },
-    {
-      "productName": "Laptop Asus TUF Gaming FX506HF-HN017W i5 11400H/16GB/512GB/GeForce RTX 2050 4GB/Win11",
-      "productCode": "ATG",
-      "category": "ASUS",
-      "price": "17990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/4/4/638162268369378408_asus-tuf-gaming-fx506hf-den-1.jpg",
-      "description": "ASUS TUF Gaming F15 FX506HF HN017W là chiếc laptop gaming giá rẻ nhưng vô cùng mạnh mẽ. Không chỉ bộ vi xử lý Intel thế hệ thứ 11, card đồ họa RTX 20 series mà điểm mạnh còn đến từ việc trang bị sẵn 16GB RAM, cho bạn hiệu năng xuất sắc mà không cần nâng cấp máy.",
-      "id": 6
-    },
-    {
-      "productName": "Laptop Acer Aspire 3 A315-57G-573F i5 1035G1/8GB/512GB SSD/GeForce MX330 2GB/Win11",
-      "productCode": "AA315",
-      "category": "ASUS",
-      "price": "10990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2020/12/24/637443973978298927_acer-aspire-3-a315-57g-den-1.png",
-      "description": "Acer Aspire 3 A315-57G-573F là sự lựa chọn giá rẻ cho những ai đang tìm kiếm một chiếc laptop sở hữu cấu hình thực sự tốt, trang bị card đồ họa rời và Windows 11 bản quyền mới nhất. Aspire 3 chắc chắn sẽ là người bạn đồng hành đáng tin cậy trong công việc của bạn.",
-      "id": 7
-    },
-    {
-      "productName": "Laptop Lenovo ThinkPad E14 Gen 3 R7 5700U/8GB/512GB/14.0\"FHD/Win 10",
-      "productCode": "TPE14",
-      "category": "ASUS",
-      "price": "18990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/3/9/637823879413804683_Laptop%20LENOVO%20ThinkPad%20E14%20Gen%203%20R7-5700U-%C4%90en-2.jpg",
-      "description": "Sức mạnh từ bộ vi xử lý AMD Ryzen 7 5700U kết hợp cùng tính bảo mật cao và độ bền chuẩn quân đội mang đến cho bạn chiếc laptop Lenovo ThinkPad E14 Gen 3 nhỏ gọn, lý tưởng cho những công việc cần phải di chuyển nhiều.",
-      "id": 8
-    },
-    {
-      "productName": "MacBook Pro 14 inch M2 Pro 2023 10CPU 16GPU 16GB/512GB",
-      "productCode": "MBP14",
-      "category": "ASUS",
-      "price": "47990000",
-      "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/1/18/638096308248534090_macbook-pro-14-2023-m2-pro-10cpu-16gpu-bac-1.jpg",
-      "description": "Phiên bản chuyên nghiệp dành cho những người chuyên nghiệp, MacBook Pro 2023 14 inch với chip M2 Pro đem lại nguồn sức mạnh ấn tượng và vượt xa thế hệ cũ. Những tác vụ được xử lý nhanh chóng sẽ trình diễn trên màn hình Liquid Retina XDR tuyệt đẹp, đem lại cho bạn trải nghiệm trọn vẹn trên mọi khía cạnh.",
-      "id": 9
-    },
-    {
       "productName": "Laptop Acer Predator Gaming Helios PH315-54-99S6 i9 11900H/16G/512G/15.6/GeForce RTX3060 6G/Win 11",
       "productCode": "APG315",
       "category": "ACER",
@@ -159,6 +61,16 @@
       "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/9/27/637683516026005964_acer-predator-helios-gaming-ph315-54-den-1.jpg",
       "description": "Acer Predator Helios 300 PH315-54-99S6 có sức mạnh khiến tất cả phải kinh ngạc với bộ vi xử lý Intel Core i9 11900H, giúp đáp ứng hiệu suất chơi game và khối lượng công việc khổng lồ. Bên cạnh đó là GPU RTX 3060 và màn hình QHD 165Hz, cho bạn trải nghiệm chơi game thực sự đỉnh cao.",
       "id": 10
+    },
+    {
+      "productName": "asdasdi",
+      "productCode": "sad",
+      "category": "ASUS",
+      "createAt": "2023-07-12T13:38:45.774Z",
+      "price": "123123312",
+      "imgUrl": "https://vcdn-sohoa.vnecdn.net/2021/01/21/HP-Elite-Folio-Front-Left-Forw-6107-5267-1611217952.jpg",
+      "description": "sadads",
+      "id": 11
     }
   ],
   "category": [
@@ -199,5 +111,66 @@
       "imgUrl": "https://cdn.tgdd.vn/Files/2017/06/18/994072/laptop-msi-cua-nuoc-nao-co-tot-khong-co-nen-mua-kh.png"
     }
   ],
-  "order": []
+  "order": [
+    {
+      "id": 1,
+      "sku": [
+        "AS3",
+        "DV16",
+        "TPE14"
+      ],
+      "name": "Tran Viet",
+      "totalPrice": 243470000,
+      "createAt": "7/12/2023",
+      "status": "Hoàn thành",
+      "imgUrl": [
+        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg",
+        "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/7/11/637931477694202849_dell-vostro-v5620-xam-1.jpg",
+        "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/11/638011026555853473_lenovo-thinkpad-e14-gen-4-den-1.jpg"
+      ],
+      "phone": "123123",
+      "address": "DN",
+      "productName": [
+        "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11",
+        "Laptop Dell Vostro 16 V5620 i5 1240P/16GB/512GB/16\"FHD+/GeForce MX570 2GB/Win11/Office HS21",
+        "Laptop Lenovo ThinkPad E14 G4 R7 5825U/8GB/512GB/14\" FHD/Win 11"
+      ]
+    },
+    {
+      "sku": [
+        "AVM513"
+      ],
+      "name": "qweqwe",
+      "phone": "12123123",
+      "address": "123123123",
+      "imgUrl": [
+        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/2/2/638109316755419553_asus-vivobook-m513ua-ej704w-r7-5700u-bac-dd.jpg"
+      ],
+      "productName": [
+        "Laptop Asus Vivobook M513UA-EJ704W R7 5700U/8GB/512GB SSD/15.6\" FHD/Win11"
+      ],
+      "createAt": "7/12/2023",
+      "status": "Chờ xác nhận",
+      "totalPrice": 14490000,
+      "id": 2
+    },
+    {
+      "sku": [
+        "AS3"
+      ],
+      "name": "adsasd",
+      "phone": "asdads",
+      "address": "asdasd",
+      "imgUrl": [
+        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg"
+      ],
+      "productName": [
+        "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11"
+      ],
+      "createAt": "7/13/2023",
+      "status": "Chờ xác nhận",
+      "totalPrice": 44970000,
+      "id": 3
+    }
+  ]
 }

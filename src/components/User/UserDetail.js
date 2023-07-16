@@ -46,21 +46,27 @@ function UserDetail() {
         })
     })
     const handleRedirect = () => {
+
         navigate("/")
     }
 
     const handleRedirectOrder = () => {
         dispatch(addProductToCart({ ...product, quantity: 1 }))
-        navigate("/cart")
+        toast.success("Sản phẩm đã được thêm vào giỏ hàng của bạn")
+        if (window.confirm("Bạn muốn đặt hàng tiếp không?")) {
+            navigate("/")
+        } else {
+            navigate("/cart")
+        }
     }
 
-    console.log(productName)
+
     return (
         <>
             <Header />
             <h1 className="text-center pt-2 pb-2" style={{ background: "linear-gradient(#e66465, #9198e5)", margin: 0 }}>Thông tin chi tiết sản phẩm</h1>
             <div style={{ display: "flex", paddingTop: "0px", padding: "0 200px", background: "linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%)" }}>
-                <img src={imgUrl} height={400} />
+                <img style={{ padding: "50px 0", marginTop: "30px" }} src={imgUrl} height={400} />
                 <div className="text-center" style={{ padding: "0 200px", paddingTop: "20px", color: "yellow" }}>
                     <h2>{productName}</h2>
                     <h3>Mã sản phẩm: {productCode}</h3>

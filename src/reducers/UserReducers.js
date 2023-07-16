@@ -48,6 +48,18 @@ export const userReducers = (state = initialState, action) => {
                 ...state,
                 listUsers: state.listUsers
             }
+
+        case "GET_CATEGORY_PRODUCT":
+            return {
+                ...state,
+                listUsers: action.payload
+            }
+
+        case "RESET_PRODUCT":
+            return {
+                ...state,
+                listUsers: []
+            }
         default:
             return state
     }

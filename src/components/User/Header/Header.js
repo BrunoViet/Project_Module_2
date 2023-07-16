@@ -25,7 +25,7 @@ function Header() {
                     <Nav.Link style={{ width: "160px" }}><Link to="/cart" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Giỏ hàng</Link></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link style={{ width: "200px" }}><Link to="/" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Thanh toán</Link></Nav.Link>
+                    <Nav.Link style={{ width: "200px" }}><Link to="/cart" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Thanh toán</Link></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link style={{ width: "150px" }}>

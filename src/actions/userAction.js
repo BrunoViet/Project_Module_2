@@ -32,3 +32,17 @@ export const logOutUserLogin = (data) => {
         payload: data
     }
 }
+
+export const getCategoryProduct = (data) => {
+    return {
+        type: "GET_CATEGORY_PRODUCT",
+        payload: data
+    }
+}
+
+export const resetProduct = (data) => {
+    return {
+        type: "RESET_PRODUCT",
+        payload: data
+    }
+}

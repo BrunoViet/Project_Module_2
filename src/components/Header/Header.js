@@ -5,12 +5,13 @@ import { useSelector } from "react-redux";
 
 function Header() {
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
-    console.log(localStorageUser)
+    const navigate = useNavigate()
+
     if (!localStorageUser) {
         navigate("/login")
     }
 
-    const navigate = useNavigate()
+
 
     const handleLogout = () => {
         localStorage.removeItem('userLogin');

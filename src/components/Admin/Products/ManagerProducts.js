@@ -191,7 +191,7 @@ function ManagerProducts() {
                                             <td>{item.productName}</td>
                                             <td>{item.productCode}</td>
                                             <td>{item.category}</td>
-                                            <td>{item.price}</td>
+                                            <td>{(item.price).toLocaleString()} đ</td>
                                             <td>
                                                 <img src={item.imgUrl} alt="Ảnh bị hư rồi" height={120} width={200} />
                                             </td>
