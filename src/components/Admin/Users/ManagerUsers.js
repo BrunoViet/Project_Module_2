@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import Header from "../../Header/Header"
+import Header from "../Header/Header"
 import "./ManagerUsers.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,8 +7,11 @@ import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router";
 import { deleteUser, getListUser, getUserLoginInfo, updateStatusUser } from "../../../actions/userAction"
 import axios from "axios"
+import Pagination from "../../../common/pagination/Pagination";
 
 function ManagerUsers() {
+    const listUserAPI = useSelector(state => state.user.listUsers)
+    console.log("hello", listUserAPI)
     const [listUsers, setListUsers] = useState([])
     const [id, setId] = useState()
     const [userName, setUsername] = useState()
@@ -22,26 +25,50 @@ function ManagerUsers() {
     const [isChanged, setIsChanged] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentUser, setCurrentUser] = useState([])
+    const [searchItems, setSearchItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
     let selectedUsers = []
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
 
     if (!localStorageUser) {
         navigate("/login")
     }
-    // const userRedux = useSelector(state => state.user.listUsers)
-    // const dispatch = useDispatch()
+
     useEffect(() => {
         axios.get("http://localhost:4000/admin")
             .then(function (response) {
                 //Xử lí khi thành công
-                setListUsers(response.data)
+                dispatch(getListUser(response.data))
             })
             .catch(function (error) {
                 //Xử lí khi lỗi
                 toast.error("Something went wrong!")
             })
-        // dispatch(getListUser(listUsers))
     }, [isChanged])
+
+    useEffect(() => {
+        const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
+        setCurrentUser(dataPaging);
+    }, [currentPage, listUserAPI])
+
+    useEffect(() => {
+        if (searchTerm !== '') {
+            const results = listUserAPI.filter((item) =>
+                item.userName.toLowerCase().includes(searchTerm.toLowerCase()));
+            setSearchItems(results)
+            const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentUser(dataPaging)
+        } else {
+            const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentUser(dataPaging);
+        }
+    }, [searchTerm, listUserAPI, currentPage]);
 
     const handleEdit = (id) => {
         for (let i = 0; i < listUsers.length; i++) {
@@ -117,11 +144,22 @@ function ManagerUsers() {
             selectedUsers.splice(index, 1);
         }
     }
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
     return (
         <>
             <Header />
             <div style={{ padding: "0 100px" }} className="content">
                 <h1 className="text-center" style={{ color: "red", position: "relative", top: "50px" }}>Manager User</h1>
+                <div style={{ marginLeft: "44%", position: "relative", top: "70px" }} >
+                    <input className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" type="text" />
+                </div>
                 <table id="customers" className="text-center" style={{ marginTop: "100px" }}>
                     <thead>
                         <tr>
@@ -140,8 +178,7 @@ function ManagerUsers() {
                         </tr>
                     </thead>
                     <tbody>
-
-                        {listUsers ? listUsers.map((item, index) => {
+                        {currentUser ? currentUser.map((item, index) => {
                             return (
                                 <>
                                     <tr key={item.id}>
@@ -189,7 +226,16 @@ function ManagerUsers() {
 
                     </tbody>
                 </table>
+                {/* Hiển thị các nút phân trang */}
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={searchTerm == '' ? listUserAPI.length : searchItems.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                />
             </div>
+
+
 
             {/* Modal */}
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static"

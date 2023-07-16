@@ -1,10 +1,16 @@
-import Header from "../../Header/Header"
+import Header from "../Header/Header"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from "react-redux";
+import { getListOrderAPI } from "../../../actions/cartActions";
+import Pagination from "../../../common/pagination/Pagination";
 
 function ManageOrder() {
+    const listOrderAPI = useSelector(state => state.cart.listOrder)
+    console.log(listOrderAPI)
+    const dispatch = useDispatch()
     const [listOrders, setListOrders] = useState([])
     const [isChanged, setIsChanged] = useState(false)
     let selectedProduct = []
@@ -17,18 +23,43 @@ function ManageOrder() {
     const [phone, setPhone] = useState()
     const [address, setAddress] = useState()
     const [productName, setProductName] = useState()
+    const [searchTerm, setSearchTerm] = useState('');
+    const [currentOrder, setCurrentOrder] = useState([])
+    const [searchItems, setSearchItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
     useEffect(() => {
         axios.get("http://localhost:4000/order")
             .then(function (response) {
                 //Xử lí khi thành công
-                setListOrders(response.data)
+                dispatch(getListOrderAPI(response.data))
             })
             .catch(function (error) {
                 //Xử lí khi lỗi
                 toast.error("Something went wrong!")
             })
     }, [isChanged])
+
+    useEffect(() => {
+        const dataPaging = listOrderAPI.slice(indexOfFirstItem, indexOfLastItem);
+        setCurrentOrder(dataPaging);
+    }, [currentPage, listOrderAPI])
+
+    useEffect(() => {
+        if (searchTerm !== '') {
+            const results = listOrderAPI.filter((item) =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+            setSearchItems(results)
+            const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentOrder(dataPaging)
+        } else {
+            const dataPaging = listOrderAPI.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentOrder(dataPaging);
+        }
+    }, [searchTerm, listOrderAPI, currentPage]);
 
     const handleDeleteProduct = (id) => {
         setIsChanged(!isChanged)
@@ -54,6 +85,7 @@ function ManageOrder() {
         }
         toast.success("Delete all orders chosen successfully")
         selectedProduct = []
+        console.log(selectedProduct)
         setIsChanged(!isChanged)
     }
 
@@ -68,7 +100,7 @@ function ManageOrder() {
     }
 
     const handleEdit = (id) => {
-        listOrders.map(item => {
+        listOrderAPI.map(item => {
             if (item.id === id) {
                 setName(item.name)
                 setCode(item.sku)
@@ -109,10 +141,21 @@ function ManageOrder() {
     const handleChangeStatus = (e) => {
         setStatus(e.target.value)
     }
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
     return (
         <>
             <Header />
             <h1 className="text-center mt-3">Manager Orders</h1>
+            <div style={{ marginLeft: "44%" }} className="mt-3 mb-3" >
+                <input className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" type="text" />
+            </div>
             <div style={{ padding: "0 200px" }}>
                 <table id="customers" className="text-center" >
                     <thead >
@@ -135,8 +178,8 @@ function ManageOrder() {
                         </tr>
                     </thead>
                     <tbody >
-                        {listOrders ?
-                            listOrders.map((item, index) => {
+                        {currentOrder ?
+                            currentOrder.map((item, index) => {
                                 return (
                                     <>
                                         <tr key={index}>
@@ -173,6 +216,13 @@ function ManageOrder() {
                             : ""}
                     </tbody>
                 </table>
+                {/* Hiển thị các nút phân trang */}
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={searchTerm == '' ? listOrderAPI.length : searchItems.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                />
             </div>
 
             {/* Modal */}

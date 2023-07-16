@@ -17,3 +17,10 @@ export const resetCart = () => {
         type: "RESET_CART",
     }
 }
+
+export const getListOrderAPI = (data) => {
+    return {
+        type: "GET_LIST_ORDER",
+        payload: data
+    }
+}

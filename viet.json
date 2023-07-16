@@ -28,8 +28,7 @@
       "productName": "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11",
       "productCode": "AS3",
       "category": "ACER",
-      "createAt": "2023-07-11T16:20:19.920Z",
-      "price": "14990000",
+      "price": "14990001",
       "imgUrl": "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg",
       "description": "Mỏng nhẹ, cao cấp, bền bỉ và mang trong mình nguồn sức mạnh đáng tin cậy, Acer Swift 3 SF314-43-R4X3 sẽ nâng tầm trải nghiệm giải trí cũng như hoạt động công việc của bạn.",
       "id": 1
@@ -38,7 +37,6 @@
       "productName": "Laptop Asus Vivobook M513UA-EJ704W R7 5700U/8GB/512GB SSD/15.6\" FHD/Win11",
       "productCode": "AVM513",
       "category": "ASUS",
-      "createAt": "2023-07-11T16:20:19.920Z",
       "price": "14490000",
       "imgUrl": "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/2/2/638109316755419553_asus-vivobook-m513ua-ej704w-r7-5700u-bac-dd.jpg",
       "description": "Asus Vivobook M513UA-EJ704W mang trong mình phong cách thiết kế đơn giản, kèm theo màn hình lớn 15.6 inch. Máy được trang bị CPU AMD Ryzen 7 kèm theo 8GB RAM và SSD 512GB, đủ sức để đáp ứng nhiều loại nhu cầu khác nhau từ làm việc đến giải trí.",
@@ -63,14 +61,233 @@
       "id": 10
     },
     {
-      "productName": "asdasdi",
-      "productCode": "sad",
+      "productName": "Laptop Asus Vivobook X515EA i3 1115G4/8GB/512GB/Win11 (EJ3948W)",
+      "productCode": "X515",
       "category": "ASUS",
-      "createAt": "2023-07-12T13:38:45.774Z",
-      "price": "123123312",
-      "imgUrl": "https://vcdn-sohoa.vnecdn.net/2021/01/21/HP-Elite-Folio-Front-Left-Forw-6107-5267-1611217952.jpg",
-      "description": "sadads",
+      "createAt": "2023-07-16T17:00:41.665Z",
+      "price": "11690000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/305010/Slider/vi-vn-asus-vivobook-x515ea-i3-ej3948w-slider-1.jpg",
+      "description": "Asus X515EA chạy hệ điều hành Windows 11 Home với nhiều tính năng mới và cải tiến vượt trội, trong đó giao diện đã được thiết kế thân thiện và dễ sử dụng, cho phép người dùng tùy chỉnh các cài đặt để phù hợp với nhu cầu sử dụng của mình.",
       "id": 11
+    },
+    {
+      "productName": "Laptop Asus Vivobook 15 OLED A1505VA i5 13500H/8GB/512GB/Win11 (L1052W)",
+      "productCode": "A1505",
+      "category": "ASUS",
+      "createAt": "2023-07-16T17:30:27.217Z",
+      "price": "19190000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/304028/Slider/vi-vn-asus-vivobook-15-oled-a1505va-i5-l1052w-thumbvideo.jpg",
+      "description": "Với hiệu năng vượt trội, màn hình OLED sắc nét và thiết kế thời thượng, laptop Asus Vivobook 15 OLED A1505VA i5 13500H (L1052W) là một trong những lựa chọn hàng đầu cho những ai đang tìm kiếm một chiếc laptop học tập - văn phòng chất lượng cao, có thể đáp ứng hoàn hảo nhu cầu công việc, học tập cũng như giải trí thường ngày.",
+      "id": 12
+    },
+    {
+      "productName": "Laptop Asus Vivobook X415EA i3 1115G4/8GB/256GB/Win11 (EK2034W)",
+      "productCode": "X415EA",
+      "category": "ASUS",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "11190000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/304866/Slider/vi-vn-asus-vivobook-x415ea-i3-ek2034w--(2).jpg",
+      "description": "Với thiết kế mỏng nhẹ, khối lượng chỉ 1.55 kg, bạn có thể dễ dàng mang theo Asus Vivobook X415EA khi di chuyển. Vỏ máy được làm bằng nhựa cao cấp, bề mặt phủ màu bạc sang trọng, tạo nên một thiết kế đơn giản nhưng hiện đại.",
+      "id": 13
+    },
+    {
+      "productName": "Laptop Asus Vivobook 15 X1504VA i5 1335U/8GB/512GB/Win11 (NJ025W)",
+      "productCode": "X1504",
+      "category": "ASUS",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "16990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/305008/Slider/vi-vn-asus-vivobook-15-x1504va-i5-nj025w--(4).jpg",
+      "description": "Thiết kế bản lề mở 180 độ giúp cho người dùng có thể mở nắp máy ở nhiều góc độ khác nhau để làm việc, xem phim hoặc chơi game một cách thoải mái hơn. Tính năng bảo mật vân tay và công tắc khóa camera giúp bảo vệ dữ liệu cá nhân trên máy tính.",
+      "id": 14
+    },
+    {
+      "productName": "Laptop Asus Gaming ROG Strix G15 G513IH R7 4800H/8GB/512GB/4GB GTX1650/144Hz/Win11 (HN015W) ",
+      "productCode": "G513",
+      "category": "ASUS",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "20990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/270031/Slider/vi-vn-asus-rog-strix-gaming-g513ih-r7-hn015w-1.jpg",
+      "description": "Bộ vi xử lý AMD Ryzen 7 4800H cùng card rời NVIDIA GeForce GTX 1650 4 GB đáp ứng mọi nhu cầu của người dùng từ học tập, game giải trí đến thiết kế đồ hoạ, render video,...",
+      "id": 15
+    },
+    {
+      "productName": "Laptop Asus Vivobook 14X OLED A1405ZA i5 12500H/8GB/512GB/Win11 (KM146W)",
+      "productCode": "A1405",
+      "category": "ASUS",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "18490000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/307806/asus-vivobook-14x-oled-a1405za-i5-km146w-glr-1.jpg",
+      "description": " Máy vận hành tốt mọi tác vụ từ văn phòng trên Word, Excel, PowerPoint,... đến các hoạt động xem phim, giải trí, nghe nhạc,... nhờ hiệu năng mạnh mẽ đến từ bộ vi xử lý Intel Core i5 12500H cùng card đồ họa Intel UHD Graphics tích hợp sẵn. Bạn có thể nâng cấp lên card Iris Xe Graphics khi máy chạy với RAM dual channel để thực hiện mượt mà hơn các công việc sáng tạo, thiết kế 2D, 3D cơ bản hay chơi game có cấu hình nhẹ.",
+      "id": 16
+    },
+    {
+      "productName": "Laptop Acer Aspire 3 A315 58 54XF i5 1135G7/8GB/512GB/Win11 (NX.AM0SV.007) ",
+      "productCode": "54XF",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "12490000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/285764/Slider/vi-vn-acer-aspire-3-a315-58-54xf-i5-nxam0sv007-slider-1.jpg",
+      "description": " Card tích hợp Intel Iris Xe hỗ trợ bạn xử lý mượt mà các tác vụ về đồ họa như thiết kế PowerPoint, chỉnh sửa hình ảnh trên Photoshop, Canva,... cũng như giải trí chơi một số tựa game MOBA ở mức cấu hình trung bình.",
+      "id": 17
+    },
+    {
+      "productName": "Laptop Acer Aspire 7 Gaming A715 76G 5132 i5 12450H/8GB/512GB/4GB GTX1650/144Hz/Win11 (NH.QMESV.002)",
+      "productCode": "A715",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "15990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/307786/Slider/vi-vn-acer-aspire-7-gaming-a715-76g-5132-i5-nhqmesv002-slider-1.jpg",
+      "description": "Một dòng laptop gaming được cải tiến hoàn toàn mới đến từ nhà Acer, Aspire 7 Gaming 2023 mang ngoại hình tối giản, đẹp mắt cùng những thông số cấu hình mạnh mẽ, vừa đáp ứng được việc chiến game, vừa xử lý hiệu quả mọi tác vụ thường ngày. Laptop Acer Aspire 7 Gaming A715 76G 5132 i5 12450H (NH.QMESV.002) chắc chắn sẽ là sự lựa chọn hoàn hảo dành cho bạn.",
+      "id": 18
+    },
+    {
+      "productName": "Laptop Acer Aspire 3 A315 58 589K i5 1135G7/8GB/256GB/Win11 (NX.AM0SV.008) ",
+      "productCode": "A315",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "11490000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/305600/Slider/vi-vn-acer-aspire-3-a315-58-589k-i5-nxam0sv008--(3).jpg",
+      "description": "Laptop Acer Aspire được trang bị bộ vi xử lý Intel Core i5 1135G7 thế hệ 11 với tốc độ cơ bản 2.4 GHz và card tích hợp Intel Iris Xe Graphics. Nhờ đó máy có khả năng xử lý tốt các tác vụ văn phòng như Word, Excel, PowerPoint và các công việc liên quan đến đồ họa ở mức cơ bản.",
+      "id": 19
+    },
+    {
+      "productName": "Laptop Acer Aspire 3 A314 35 C3KS N5100/4GB/256GB/Win11 (NX.A7SSV.009) ",
+      "productCode": "A314",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "5490000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/308490/Slider/vi-vn-acer-aspire-3-a314-35-c3ks-n5100-nxa7ssv009-slider-1.jpg",
+      "description": " Bộ vi xử lý Intel Celeron N5100 cùng card tích hợp Intel UHD Graphics cho phép người dùng có thể thoải mái soạn thảo văn bản trên Word, thao tác chuẩn bị slide trên PowerPoint,... hay giải trí, xem phim và nghe nhạc đều mượt mà.",
+      "id": 20
+    },
+    {
+      "productName": "Laptop Acer Aspire 7 Gaming A715 42G R05G R5 5500U/8GB/512GB/4GB GTX1650/144Hz/Win11 (NH.QAYSV.007)",
+      "productCode": "A715",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "14990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/269533/Slider/acer-aspire-7-gaming-a715-42g-r05g-r5-nhqaysv007-01-1020x570.jpg",
+      "description": "Toàn bộ bên ngoài của em máy mang lại cho mình liên tưởng đến những nét quen thuộc trên dòng laptop Acer Aspire bao lâu nay với khung máy cứng cáp, cảm nhận khi chạm vào là laptop được build rất tốt. ",
+      "id": 21
+    },
+    {
+      "productName": "Laptop Acer Nitro 5 Gaming AN515 57 5669 i5 11400H/8GB/512GB/144Hz/4GB GTX1650/Win11 (NH.QEHSV.001) ",
+      "productCode": "AN515 ",
+      "category": "ACER",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "17990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/263983/Slider/vi-vn-acer-nitro-5-gaming-an515-57-5669-i5-nhqehsv001-1.jpg",
+      "description": "Laptop Acer Nitro 5 Gaming AN515 57 5669 i5 (NH.QEHSV.001) khơi nguồn mọi cảm hứng game thủ với phong cách thiết kế đậm chất gaming cùng những chuyển động mượt mà với card đồ họa NVIDIA GeForce GTX, mang lại chiến thắng tuyệt đối cho người dùng trên mọi chiến trường ảo.",
+      "id": 22
+    },
+    {
+      "productName": "Laptop Dell Vostro 5620 i5 1240P/8GB/256GB/OfficeHS/Win11 (V6I5001W1)",
+      "productCode": "5620 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "17990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/292397/Slider/vi-vn-dell-vostro-5620-i5-v6i5001w1-thumbvideo.jpg",
+      "description": "Laptop Dell Vostro 5620 i5 (V6I5001W1) có lối thiết kế đơn giản nhưng hiện đại, sở hữu cấu hình mạnh mẽ đến từ bộ vi xử lý Intel Gen 12 đi cùng màn hình kích thước lớn hỗ trợ mình giải quyết mọi tác vụ trong cả công việc và học tập.",
+      "id": 23
+    },
+    {
+      "productName": "Laptop Dell Inspiron 15 3520 i5 1235U/8GB/256GB/120Hz/OfficeHS/Win11 (N5I5122W1)",
+      "productCode": "3520 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "15990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/296847/Slider/vi-vn-dell-inspiron-15-3520-i5-n5i5122w1-thumbvideo-1.jpg",
+      "description": "Điều đầu tiên và cũng là điều bất ngờ nhất khi mình trải nghiệm laptop Dell Inspiron chính là sự mượt mà trong mọi thao tác mà màn hình 120 Hz mang lại. Dell Inspiron 15 nằm trong số ít những sản phẩm nằm trong phân khúc học tập, văn phòng dưới 20 triệu được trang bị tần số quét cao, từ đó mang đến trải nghiệm sử dụng mượt mà nhất.",
+      "id": 24
+    },
+    {
+      "productName": "Laptop Dell Inspiron 16 5620 i5 1235U/8GB/256GB/OfficeHS/Win11 (P1WKN) ",
+      "productCode": "5620 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "19790000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/303834/Slider/vi-vn-dell-inspiron-16-5620-i5-p1wkn--(4).jpg",
+      "description": "Laptop Dell Inspiron 16 5620 i5 (P1WKN) là tân binh tiếp theo thuộc dòng laptop học tập - văn phòng vừa được mở bán tại Thế Giới Di Động, không chỉ sở hữu ngoại hình bắt mắt mà còn mang trong mình những thông số kỹ thuật tân tiến.",
+      "id": 25
+    },
+    {
+      "productName": "Laptop Dell Vostro 3520 i3 1215U/8GB/256GB/OfficeHS/Win11 (V5I3614W1)",
+      "productCode": "3520 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "12390000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/305655/Slider/vi-vn-dell-vostro-3520-i3-v5i3614w1--(2).jpg",
+      "description": " Bộ vi xử lý Intel Core i3 1215U với 6 nhân và 8 luồng, tốc độ xung nhịp lên đến 4.40 GHz, kết hợp cùng card tích hợp Intel UHD Graphics có thể vận hành hoàn hảo các tác vụ đơn giản như xem video, lướt web, chơi game cơ bản hay thực hiện các công việc văn phòng như xử lý văn bản và bảng tính một cách trơn tru.",
+      "id": 26
+    },
+    {
+      "productName": "Laptop Dell Vostro 3520 i3 1215U/8GB/256GB/OfficeHS/Win11 (V5I3614W1) ",
+      "productCode": "3520 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "12390000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/305655/Slider/vi-vn-dell-vostro-3520-i3-v5i3614w1--(2).jpg",
+      "description": "Laptop Dell Vostro 3520 i3 1215U (V5I3614W1) là một lựa chọn tuyệt vời cho những bạn đang cần tìm một chiếc laptop học tập - văn phòng sở hữu cấu hình ổn định, có khả năng vận hành trơn tru mọi tác vụ thường ngày.",
+      "id": 27
+    },
+    {
+      "productName": "Laptop Dell XPS 17 9710 i7 11800H/16GB/1TB SSD/4GB RTX3050/Touch/Cáp/Office H&S/Win11 (XPS7I7001W1)",
+      "productCode": "9710 ",
+      "category": "DELL",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "56290000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/268712/Slider/vi-vn-dell-xps-17-9710-i7-xps7i7001w1-update-1020x570.jpg",
+      "description": "Laptop Dell XPS 17 9710 (XPS7I7001W1) sẽ không làm người dùng thất vọng khi sở hữu ngoại hình thời thượng cùng những thông số kỹ thuật đẳng cấp. ",
+      "id": 28
+    },
+    {
+      "productName": "Laptop Apple MacBook Air 13 inch M1 2020 8-core CPU/8GB/256GB/7-core GPU (MGN63SA/A)",
+      "productCode": "M1 ",
+      "category": "Macbook",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "18990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/231244/Slider/vi-vn-apple-macbook-air-2020-mgn63saa-thumbvideo.jpg",
+      "description": "Laptop Apple MacBook Air M1 2020 thuộc dòng laptop cao cấp sang trọng có cấu hình mạnh mẽ, chinh phục được các tính năng văn phòng lẫn đồ hoạ mà bạn mong muốn, thời lượng pin dài, thiết kế mỏng nhẹ sẽ đáp ứng tốt các nhu cầu làm việc của bạn.",
+      "id": 29
+    },
+    {
+      "productName": "Laptop Apple MacBook Pro 16 inch M1 Pro 2021 10 core-CPU/16GB/512GB/16 core-GPU (MK1E3SA/A)",
+      "productCode": "M1 Pro 2021",
+      "category": "Macbook",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "39990000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/253636/Slider/vi-vn-apple-pro-16-m1-pro-2021-10-core-cpu-thumbvideo.jpg",
+      "description": "MacBook Pro 16 M1 Pro 2021 không chỉ sở hữu thiết kế mới trông vuông vức hơn mà còn mang trong mình sức mạnh hiệu năng vượt trội đến từ bộ vi xử lý M1 Pro, cho mình trải nghiệm sử dụng mượt mà và ấn tượng như một dân chuyên đúng nghĩa.",
+      "id": 30
+    },
+    {
+      "productName": "Laptop Apple MacBook Air 13 inch M2 2022 8-core CPU/8GB/256GB/8-core GPU (MLY13SA/A)",
+      "productCode": " M2 2022",
+      "category": "Macbook",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "27090000",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/282827/Slider/vi-vn-apple-macbook-air-m2-2022-thumbvideo-1.jpg",
+      "description": "Sau 14 năm, ba lần sửa đổi và hai kiến trúc bộ vi xử lý khác nhau, kiểu dáng mỏng dần mang tính biểu tượng của MacBook Air đã đi vào lịch sử. Thay vào đó là một chiếc MacBook Air M2 với thiết kế hoàn toàn mới, độ dày không thay đổi tương tự như MacBook Pro, đánh bật mọi rào cản với con chip Apple M2 đầy mạnh mẽ.",
+      "id": 31
+    },
+    {
+      "productName": "Laptop Apple MacBook Pro 13 inch M2 2022 8-core CPU/8GB/256GB/10-core GPU (MNEH3SA/A)",
+      "productCode": "M2 2022",
+      "category": "Macbook",
+      "price": "29290001",
+      "imgUrl": "https://cdn.tgdd.vn/Products/Images/44/282828/Slider/vi-vn-apple-macbook-pro-13-inch-m2-2022-thumbvideo.jpg",
+      "description": "Sở hữu thiết kế thanh lịch, sang trọng cùng hiệu năng vượt trội đến từ bộ vi xử lý Apple M2 tân tiến, Macbook Pro M2 hứa hẹn sẽ đáp ứng hoàn hảo cho người dùng sáng tạo, phục vụ tốt cho các nhu cầu thiết kế đồ họa nâng cao.",
+      "id": 32
+    },
+    {
+      "productName": "Laptop MacBook Air 15 inch M2 2023 8CPU/8GB/256GB/10GPU (MQKU3SA/A) ",
+      "productCode": "15 inch M2 2023",
+      "category": "Macbook",
+      "createAt": "2023-07-16T17:32:12.057Z",
+      "price": "32290000",
+      "imgUrl": "https://img.youtube.com/vi/0okuAwqTHs0/maxresdefault.jpg",
+      "description": "MacBook Air 15 inch M2 2023 đã có phiên bản cải tiến vừa được nhà Apple cho ra mắt, thêm không gian cho những điều bạn yêu với màn hình Liquid Retina 15 inch ấn tượng. Với người dùng yêu thích hiệu năng \"nhanh như chớp\" trong một thiết kế siêu gọn nhẹ của dòng Air thì đây chắc chắn là một sản phẩm bạn không nên bỏ qua.",
+      "id": 33
     }
   ],
   "category": [
@@ -111,66 +328,5 @@
       "imgUrl": "https://cdn.tgdd.vn/Files/2017/06/18/994072/laptop-msi-cua-nuoc-nao-co-tot-khong-co-nen-mua-kh.png"
     }
   ],
-  "order": [
-    {
-      "id": 1,
-      "sku": [
-        "AS3",
-        "DV16",
-        "TPE14"
-      ],
-      "name": "Tran Viet",
-      "totalPrice": 243470000,
-      "createAt": "7/12/2023",
-      "status": "Hoàn thành",
-      "imgUrl": [
-        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg",
-        "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/7/11/637931477694202849_dell-vostro-v5620-xam-1.jpg",
-        "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/10/11/638011026555853473_lenovo-thinkpad-e14-gen-4-den-1.jpg"
-      ],
-      "phone": "123123",
-      "address": "DN",
-      "productName": [
-        "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11",
-        "Laptop Dell Vostro 16 V5620 i5 1240P/16GB/512GB/16\"FHD+/GeForce MX570 2GB/Win11/Office HS21",
-        "Laptop Lenovo ThinkPad E14 G4 R7 5825U/8GB/512GB/14\" FHD/Win 11"
-      ]
-    },
-    {
-      "sku": [
-        "AVM513"
-      ],
-      "name": "qweqwe",
-      "phone": "12123123",
-      "address": "123123123",
-      "imgUrl": [
-        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2023/2/2/638109316755419553_asus-vivobook-m513ua-ej704w-r7-5700u-bac-dd.jpg"
-      ],
-      "productName": [
-        "Laptop Asus Vivobook M513UA-EJ704W R7 5700U/8GB/512GB SSD/15.6\" FHD/Win11"
-      ],
-      "createAt": "7/12/2023",
-      "status": "Chờ xác nhận",
-      "totalPrice": 14490000,
-      "id": 2
-    },
-    {
-      "sku": [
-        "AS3"
-      ],
-      "name": "adsasd",
-      "phone": "asdads",
-      "address": "asdasd",
-      "imgUrl": [
-        "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg"
-      ],
-      "productName": [
-        "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11"
-      ],
-      "createAt": "7/13/2023",
-      "status": "Chờ xác nhận",
-      "totalPrice": 44970000,
-      "id": 3
-    }
-  ]
+  "order": []
 }

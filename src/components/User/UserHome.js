@@ -8,11 +8,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./UserHome.css"
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart } from "../../actions/cartActions";
 import { Link } from "react-router-dom";
+import Pagination from "../../common/pagination/Pagination";
+import { getListProductFromAPI } from "../../actions/userAction";
 
 function UserHome() {
+    const listProductAPI = useSelector(state => state.user.listProductsFromAPI)
+    console.log(listProductAPI)
     const userLogin = JSON.parse(localStorage.getItem('user'));
     const [listProduct, setListProduct] = useState([])
     const [listCategory, setListCategory] = useState([])
@@ -21,6 +25,12 @@ function UserHome() {
     const [quantity, setQuantity] = useState()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [currentProduct, setCurrentProduct] = useState([])
+    const [searchItems, setSearchItems] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     if (!userLogin) {
         navigate("/userlogin")
     }
@@ -29,7 +39,7 @@ function UserHome() {
         axios.get("http://localhost:4000/product")
             .then(function (response) {
                 //Xử lí khi thành công
-                setListProduct(response.data)
+                dispatch(getListProductFromAPI(response.data))
             })
             .catch(function (error) {
                 //Xử lí khi lỗi
@@ -50,16 +60,33 @@ function UserHome() {
     }, [])
 
     useEffect(() => {
-        // Tìm kiếm dữ liệu khi searchTerm thay đổi
-        const results = listProduct.filter((item) =>
-            item.productName.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setSearchResults(results);
-    }, [searchTerm, listProduct]);
+        const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+        setCurrentProduct(dataPaging);
+    }, [currentPage, listProductAPI])
+
+    useEffect(() => {
+        if (searchTerm !== '') {
+            const results = listProductAPI.filter((item) =>
+                item.productName.toLowerCase().includes(searchTerm.toLowerCase()));
+            setSearchItems(results)
+            const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentProduct(dataPaging)
+        } else {
+            const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentProduct(dataPaging);
+        }
+    }, [searchTerm, listProductAPI, currentPage]);
 
     const handleAddToCart = (item) => {
         dispatch(addProductToCart({ ...item, quantity: Number(quantity) }))
-        navigate('/cart')
+        toast.success("Sản phẩm đã được thêm vào giỏ hàng của bạn")
+        if (window.confirm("Bạn có muốn đặt hàng tiếp không?")) {
+            navigate("/")
+            setQuantity()
+        } else {
+            setQuantity()
+            navigate('/cart')
+        }
     }
 
     const handleShowDetails = (id) => {
@@ -72,6 +99,10 @@ function UserHome() {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
+    };
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
     };
     return (
         <>
@@ -127,14 +158,14 @@ function UserHome() {
             </div>
             <div style={{ marginLeft: "45%", marginTop: "5px", marginBottom: "5px" }}><input type="text" className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" /></div>
             <div className="row" style={{ padding: "0 300px", background: "linear-gradient(to right, #fffbd5, #b20a2c)", maxHeight: "fit-content" }}>
-                {searchResults.map(item => {
+                {currentProduct.map(item => {
                     return (
                         <>
                             <Card className="col-4 mb-3 mt-3" style={{ padding: "0 20px" }}>
                                 <Card.Img variant="top" src={item.imgUrl} height="300px" width="100px" />
                                 <Card.Body>
                                     <div>
-                                        <Card.Title style={{ fontSize: "40px", fontWeight: "bold" }}>{item.productName}</Card.Title>
+                                        <Card.Title style={{ fontSize: "40px", fontWeight: "bold", height: "400px" }}>{item.productName}</Card.Title>
                                     </div>
                                     <Card.Text style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
                                         {item.price} đ
@@ -154,6 +185,12 @@ function UserHome() {
                         </>
                     )
                 })}
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={searchTerm == '' ? listProductAPI.length : searchItems.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                />
             </div>
             <div className="text-center pb-3 pt-3 text-danger" style={{ background: "linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)" }}>
                 <h1>Thương hiệu nổi bật</h1>

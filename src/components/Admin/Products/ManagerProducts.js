@@ -1,16 +1,19 @@
 import { useSelector, useDispatch } from "react-redux"
-import Header from "../../Header/Header"
+import Header from "../Header/Header"
 import "./ManagerProducts.css"
 import { useState, useEffect } from "react"
 import { addProducttoList } from "../../../actions/cartActions"
 import axios from "axios"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getUserLoginInfo } from "../../../actions/userAction"
+import { getListProductFromAPI, getUserLoginInfo } from "../../../actions/userAction"
 import { useNavigate } from "react-router"
+import Pagination from "../../../common/pagination/Pagination"
 
 function ManagerProducts() {
-
+    const dispatch = useDispatch()
+    const listProductAPI = useSelector(state => state.user.listProductsFromAPI)
+    console.log(listProductAPI)
     const [productName, setProductName] = useState()
     const [productCode, setProductCode] = useState()
     const [category, setCategory] = useState()
@@ -18,31 +21,56 @@ function ManagerProducts() {
     const [price, setPrice] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [description, setDescription] = useState()
-    const [listProducts, setListProducts] = useState([])
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [isChanged, setIsChanged] = useState(false)
     const [id, setId] = useState()
     let selectedProduct = []
     const [isEdit, setIsEdit] = useState(false)
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(3);
     const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
-
+    const [searchTerm, setSearchTerm] = useState('');
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const [currentItems, setCurrentItems] = useState([])
+    const [searchItems, setSearchItems] = useState([])
     if (!localStorageUser) {
         navigate("/login")
     }
 
     useEffect(() => {
+        setIsChanged(!isChanged)
+    }, [])
+
+    useEffect(() => {
         axios.get("http://localhost:4000/product")
             .then(function (response) {
                 //Xử lí khi thành công
-                setListProducts(response.data)
+                dispatch(getListProductFromAPI(response.data))
             })
             .catch(function (error) {
                 //Xử lí khi lỗi
                 toast.error("Something went wrong!")
             })
     }, [isChanged])
+
+    useEffect(() => {
+        const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+        setCurrentItems(dataPaging);
+    }, [currentPage, listProductAPI])
+
+    useEffect(() => {
+        if (searchTerm !== '') {
+            const results = listProductAPI.filter((item) =>
+                item.productName.toLowerCase().includes(searchTerm.toLowerCase()));
+            setSearchItems(results)
+            const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentItems(dataPaging)
+        } else {
+            const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentItems(dataPaging);
+        }
+    }, [searchTerm, listProductAPI, currentPage]);
 
     const handleAdd = () => {
         setIsChanged(!isChanged)
@@ -68,7 +96,7 @@ function ManagerProducts() {
 
     const handleEdit = (id) => {
         setIsEdit(!isEdit)
-        listProducts.map(item => {
+        listProductAPI.map(item => {
             if (item.id === id) {
                 setProductName(item.productName)
                 setProductCode(item.productCode)
@@ -108,6 +136,7 @@ function ManagerProducts() {
             })
             .catch((error) => { toast.error("Something went wrong!") })
 
+        document.getElementById("form").reset()
 
     }
 
@@ -134,6 +163,7 @@ function ManagerProducts() {
             })
             toast.success("Delete all product chosen successfully")
             selectedProduct = []
+            console.log(selectedProduct)
             setIsChanged(!isChanged)
         }
 
@@ -149,10 +179,18 @@ function ManagerProducts() {
             selectedProduct.splice(index, 1);
         }
     }
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
     return (
         <>
             <Header />
-
             <h1 className="text-center mt-3">Manager Products</h1>
             <div className="text-center mt-3">
                 <button className="btn btn-primary me-2 mb-2"
@@ -160,6 +198,9 @@ function ManagerProducts() {
                 >
                     Add Products
                 </button>
+            </div>
+            <div style={{ marginLeft: "44%" }} className="mb-2">
+                <input className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" type="text" />
             </div>
             <div style={{ padding: "0 200px" }}>
                 <table id="customers" className="text-center" >
@@ -182,8 +223,8 @@ function ManagerProducts() {
                         </tr>
                     </thead>
                     <tbody >
-                        {listProducts ?
-                            listProducts.map((item, index) => {
+                        {currentItems ?
+                            currentItems.map((item, index) => {
                                 return (
                                     <>
                                         <tr key={index}>
@@ -216,9 +257,18 @@ function ManagerProducts() {
                                     </>
                                 )
                             })
-                            : ""}
+                            :
+                            ""
+                        }
                     </tbody>
                 </table>
+                {/* Hiển thị các nút phân trang */}
+                <Pagination
+                    itemsPerPage={itemsPerPage}
+                    totalItems={searchTerm == '' ? listProductAPI.length : searchItems.length}
+                    currentPage={currentPage}
+                    paginate={paginate}
+                />
             </div>
 
 

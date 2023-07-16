@@ -34,7 +34,7 @@ function Login() {
         for (let i = 0; i < listUsers.length; i++) {
             if (listUsers[i].userName === userName && listUsers[i].password === password && listUsers[i].role === "Admin") {
                 dispatch(getUserLoginInfo(listUsers[i]))
-                localStorage.setItem("userLogin", JSON.stringify(listUsers[i]))
+                localStorage.setItem("admin", JSON.stringify(listUsers[i]))
                 isLogin = true
                 break
             }

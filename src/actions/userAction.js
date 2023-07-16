@@ -1,4 +1,5 @@
 export const getListUser = (data) => {
+    console.log(data);
     return {
         type: "GET_LIST_USER",
         payload: data
@@ -43,6 +44,13 @@ export const getCategoryProduct = (data) => {
 export const resetProduct = (data) => {
     return {
         type: "RESET_PRODUCT",
+        payload: data
+    }
+}
+
+export const getListProductFromAPI = (data) => {
+    return {
+        type: "GET_LIST_PRODUCT",
         payload: data
     }
 }

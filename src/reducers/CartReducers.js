@@ -1,5 +1,6 @@
 const initialState = {
-    listProducts: []
+    listProducts: [],
+    listOrder: []
 }
 
 export const cartReducers = (state = initialState, action) => {
@@ -28,6 +29,11 @@ export const cartReducers = (state = initialState, action) => {
             return {
                 ...state,
                 listProducts: []
+            }
+        case "GET_LIST_ORDER":
+            return {
+                ...state,
+                listOrder: action.payload
             }
         default:
             return state

@@ -1,14 +1,15 @@
+
 const initialState = {
-    listUsers: []
+    listUsers: [],
+    listProductsFromAPI: [],
 }
 
 export const userReducers = (state = initialState, action) => {
     switch (action.type) {
         case "GET_LIST_USER":
-            state.listUsers = action.payload
             return {
                 ...state,
-                listUsers: state.listUsers
+                listUsers: action.payload
             }
 
         case "UPDATE_STATUS_USER":
@@ -60,6 +61,12 @@ export const userReducers = (state = initialState, action) => {
                 ...state,
                 listUsers: []
             }
+        case "GET_LIST_PRODUCT":
+            return {
+                ...state,
+                listProductsFromAPI: action.payload
+            }
+
         default:
             return state
     }
