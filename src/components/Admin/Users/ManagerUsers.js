@@ -11,8 +11,7 @@ import Pagination from "../../../common/pagination/Pagination";
 
 function ManagerUsers() {
     const listUserAPI = useSelector(state => state.user.listUsers)
-    console.log("hello", listUserAPI)
-    const [listUsers, setListUsers] = useState([])
+    console.log(listUserAPI)
     const [id, setId] = useState()
     const [userName, setUsername] = useState()
     const [email, setEmail] = useState()
@@ -34,7 +33,7 @@ function ManagerUsers() {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
     let selectedUsers = []
-    const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
+    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
 
     if (!localStorageUser) {
         navigate("/login")
@@ -52,10 +51,7 @@ function ManagerUsers() {
             })
     }, [isChanged])
 
-    useEffect(() => {
-        const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
-        setCurrentUser(dataPaging);
-    }, [currentPage, listUserAPI])
+
 
     useEffect(() => {
         if (searchTerm !== '') {
@@ -70,18 +66,23 @@ function ManagerUsers() {
         }
     }, [searchTerm, listUserAPI, currentPage]);
 
+    useEffect(() => {
+        const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
+        setCurrentUser(dataPaging);
+    }, [currentPage, listUserAPI])
+
     const handleEdit = (id) => {
-        for (let i = 0; i < listUsers.length; i++) {
-            if (listUsers[i].id == id) {
-                setUsername(listUsers[i].userName)
-                setEmail(listUsers[i].email)
-                setPassword(listUsers[i].password)
-                setFirstName(listUsers[i].firstName)
-                setLastName(listUsers[i].lastName)
-                setAvatar(listUsers[i].avatar)
-                setCreatedAt(listUsers[i].createdAt)
-                setRole(listUsers[i].role)
-                setId(listUsers[i].id)
+        for (let i = 0; i < listUserAPI.length; i++) {
+            if (listUserAPI[i].id == id) {
+                setUsername(listUserAPI[i].userName)
+                setEmail(listUserAPI[i].email)
+                setPassword(listUserAPI[i].password)
+                setFirstName(listUserAPI[i].firstName)
+                setLastName(listUserAPI[i].lastName)
+                setAvatar(listUserAPI[i].avatar)
+                setCreatedAt(listUserAPI[i].createdAt)
+                setRole(listUserAPI[i].role)
+                setId(listUserAPI[i].id)
                 break
             }
         }

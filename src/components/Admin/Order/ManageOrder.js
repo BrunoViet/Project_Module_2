@@ -22,7 +22,7 @@ function ManageOrder() {
     const [status, setStatus] = useState()
     const [phone, setPhone] = useState()
     const [address, setAddress] = useState()
-    const [productName, setProductName] = useState()
+    const [productName, setProductName] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
     const [currentOrder, setCurrentOrder] = useState([])
     const [searchItems, setSearchItems] = useState([])
@@ -36,6 +36,7 @@ function ManageOrder() {
             .then(function (response) {
                 //Xử lí khi thành công
                 dispatch(getListOrderAPI(response.data))
+                console.log(response.data)
             })
             .catch(function (error) {
                 //Xử lí khi lỗi
@@ -189,7 +190,7 @@ function ManageOrder() {
                                             <td>{item.phone}</td>
                                             <td>{item.address}</td>
                                             <td>
-                                                <img src={item.imgUrl[0]} alt="Ảnh bị hư rồi" height={120} width={200} />
+                                                <img src={item.imgUrl[0].imgUrl} alt="Ảnh bị hư rồi" height={120} width={200} />
                                             </td>
                                             <td>{item.totalPrice ? (item.totalPrice).toLocaleString() : item.price} đ</td>
                                             <td>{item.createAt}</td>
@@ -240,7 +241,9 @@ function ManageOrder() {
                                     {productName ? productName.map(item => {
                                         return (
                                             <>
-                                                <input type="text" className="form-control mt-2" id="product-name" defaultValue={item}
+                                                <input type="text" className="form-control mt-2" id="product-name" defaultValue={item.name}
+                                                    disabled />
+                                                <input type="text" className="form-control mt-2 mb-5" id="product-name" defaultValue={`So luong ${item.quantity}`}
                                                     disabled />
                                             </>
                                         )
@@ -269,9 +272,10 @@ function ManageOrder() {
                                     <label>Ảnh sản phẩm</label>
                                     <div style={{ display: "flex", gap: "10px" }} className="mt-2">
                                         {imgUrl ? imgUrl.map(item => {
+                                            console.log(item)
                                             return (
                                                 <>
-                                                    <img src={item} alt="Ảnh lỗi rồi" height={100} width="130px" />
+                                                    <img src={item.imgUrl} alt="Ảnh lỗi rồi" height={100} width="130px" /> x {item.quantity}
                                                 </>
                                             )
                                         }) : ""}

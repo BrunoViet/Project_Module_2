@@ -1,7 +1,7 @@
 {
   "admin": [
     {
-      "userName": "viet123123123",
+      "userName": "viet2",
       "email": "ben@gmail.com",
       "password": "123123",
       "firstName": "ads",
@@ -21,6 +21,17 @@
       "avatar": "123123",
       "createdAt": "7/12/2023",
       "id": 3
+    },
+    {
+      "userName": "viet1",
+      "password": "123123",
+      "email": "viet@gmail.com",
+      "firstName": "viet",
+      "lastName": "tran",
+      "role": "Admin",
+      "avatar": "asdads",
+      "createdAt": "7/17/2023",
+      "id": 4
     }
   ],
   "product": [
@@ -328,5 +339,39 @@
       "imgUrl": "https://cdn.tgdd.vn/Files/2017/06/18/994072/laptop-msi-cua-nuoc-nao-co-tot-khong-co-nen-mua-kh.png"
     }
   ],
-  "order": []
+  "order": [
+    {
+      "id": 1,
+      "sku": [
+        "AS3",
+        "DV16"
+      ],
+      "name": "asda",
+      "totalPrice": 115740003,
+      "createAt": "7/17/2023",
+      "status": "Đã xác nhận",
+      "imgUrl": [
+        {
+          "imgUrl": "https://images.fpt.shop/unsafe/fit-in/240x215/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2021/11/18/637728602789371579_acer-swift-3-sf314-43-r4x3-r5-5500u-bac-dd.jpg",
+          "quantity": 3
+        },
+        {
+          "imgUrl": "https://images.fpt.shop/unsafe/fit-in/585x390/filters:quality(90):fill(white)/fptshop.com.vn/Uploads/Originals/2022/7/11/637931477694202849_dell-vostro-v5620-xam-1.jpg",
+          "quantity": 3
+        }
+      ],
+      "phone": "daasd",
+      "address": "sdaasdas",
+      "productName": [
+        {
+          "name": "Laptop Acer Swift 3 SF314-43-R4X3 R5 5500U/16GB/512GB SSD/Win11",
+          "quantity": 3
+        },
+        {
+          "name": "Laptop Dell Vostro 16 V5620 i5 1240P/16GB/512GB/16\"FHD+/GeForce MX570 2GB/Win11/Office HS21",
+          "quantity": 3
+        }
+      ]
+    }
+  ]
 }

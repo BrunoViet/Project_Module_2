@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Header() {
-    const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
+    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
     const navigate = useNavigate()
 
     if (!localStorageUser) {
@@ -14,7 +14,7 @@ function Header() {
 
 
     const handleLogout = () => {
-        localStorage.removeItem('userLogin');
+        localStorage.removeItem('admin');
 
         navigate("/login")
     }

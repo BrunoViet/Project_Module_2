@@ -43,7 +43,7 @@ function Login() {
         if (!isLogin) {
             toast.error("Admin not found: " + userName)
         } else {
-            navigate("/home")
+            navigate("/products")
         }
 
     }

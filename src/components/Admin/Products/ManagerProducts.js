@@ -28,7 +28,7 @@ function ManagerProducts() {
     const [isEdit, setIsEdit] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(3);
-    const localStorageUser = JSON.parse(localStorage.getItem('userLogin'))
+    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
     const [searchTerm, setSearchTerm] = useState('');
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;

@@ -26,8 +26,8 @@ function CartUser() {
     cartList.map(item => {
         productPriceListCart.push(Number(item.quantity * item.price))
         productCodeListCart.push(item.productCode)
-        productNameListCart.push(item.productName)
-        productImgListCart.push(item.imgUrl)
+        productNameListCart.push({ name: item.productName, quantity: item.quantity })
+        productImgListCart.push({ imgUrl: item.imgUrl, quantity: item.quantity })
     })
 
     productPriceListCart.forEach(item => {
