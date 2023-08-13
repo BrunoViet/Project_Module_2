@@ -38,7 +38,7 @@ function Header() {
                                 <Link to="/order" className="nav-link">Manager Order</Link>
                             </li>
                         </ul>
-                        <h3 className="text-primary me-3">{localStorageUser ? `Hello ${localStorageUser.userName}!` : navigate("/login")}</h3>
+                        <h3 className="text-primary me-3">{localStorageUser ? `Hello ${localStorageUser.username}!` : navigate("/login")}</h3>
                         <button className="btn btn-success me-5" onClick={handleLogout}>
                             Logout
                         </button>

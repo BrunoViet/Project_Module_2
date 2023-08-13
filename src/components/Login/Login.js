@@ -5,7 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { getUserLoginInfo } from "../../actions/userAction";
+import { getListUser, getUserLoginInfo } from "../../actions/userAction";
+import { getListUsers } from "../../common/API/userAPI";
 
 function Login() {
     const [userName, setUsername] = useState("")
@@ -15,16 +16,18 @@ function Login() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        axios.get("http://localhost:4000/admin")
-            .then(function (response) {
-                //Xử lí khi thành công
-                setListUsers(response.data)
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
+        getListUsersFormAPI()
     }, [])
+
+    const getListUsersFormAPI = async () => {
+        try {
+            const users = await getListUsers()
+            setListUsers(users)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
+
     const handleRedirect = () => {
         navigate("/register")
     }
@@ -32,18 +35,18 @@ function Login() {
     const handleLogin = () => {
         let isLogin = false
         for (let i = 0; i < listUsers.length; i++) {
-            if (listUsers[i].userName === userName && listUsers[i].password === password && listUsers[i].role === "Admin") {
+            if (listUsers[i].username === userName && listUsers[i].password === password && listUsers[i].role === 1) {
                 dispatch(getUserLoginInfo(listUsers[i]))
                 localStorage.setItem("admin", JSON.stringify(listUsers[i]))
                 isLogin = true
                 break
             }
-
         }
         if (!isLogin) {
             toast.error("Admin not found: " + userName)
         } else {
-            navigate("/products")
+            toast.success("Đăng nhập thành công!")
+            navigate("/home")
         }
 
     }

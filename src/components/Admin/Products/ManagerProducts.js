@@ -2,11 +2,10 @@ import { useSelector, useDispatch } from "react-redux"
 import Header from "../Header/Header"
 import "./ManagerProducts.css"
 import { useState, useEffect } from "react"
-import { addProducttoList } from "../../../actions/cartActions"
 import axios from "axios"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getListProductFromAPI, getUserLoginInfo } from "../../../actions/userAction"
+import { getListProductFromAPI } from "../../../actions/userAction"
 import { useNavigate } from "react-router"
 import Pagination from "../../../common/pagination/Pagination"
 
@@ -113,14 +112,6 @@ function ManagerProducts() {
     const handleSaveEdit = () => {
         setIsEdit(!isEdit)
         setIsChanged(!isChanged)
-        // setProductName("")
-        // setProductCode("")
-        // setPrice("")
-        // setImgUrl("")
-        // setCategory("")
-        // setCreatedAt("")
-        // setDescription("")
-        // setId("")
         axios.put(`http://localhost:4000/product/${id}`, {
             "productName": productName,
             "productCode": productCode,

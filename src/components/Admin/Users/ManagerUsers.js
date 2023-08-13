@@ -1,37 +1,36 @@
 import { useEffect, useState } from "react"
 import Header from "../Header/Header"
 import "./ManagerUsers.css"
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router";
-import { deleteUser, getListUser, getUserLoginInfo, updateStatusUser } from "../../../actions/userAction"
-import axios from "axios"
 import Pagination from "../../../common/pagination/Pagination";
+import { deleteUser, getListUsers, getListUsersSortedLastName, getListUsersSortedRole, getListUsersSortedUserName, updateUser } from "../../../common/API/userAPI";
 
 function ManagerUsers() {
-    const listUserAPI = useSelector(state => state.user.listUsers)
-    console.log(listUserAPI)
     const [id, setId] = useState()
-    const [userName, setUsername] = useState()
+    const [userName, setUserName] = useState()
     const [email, setEmail] = useState()
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
     const [avatar, setAvatar] = useState()
     const [createdAt, setCreatedAt] = useState()
+    const [updatedAt, setUpdatedAt] = useState()
+    const [createdById, setCreatedById] = useState()
+    const [updatedById, setUpdatedById] = useState()
     const [role, setRole] = useState()
     const [password, setPassword] = useState()
     const [isChanged, setIsChanged] = useState(false)
-    const dispatch = useDispatch()
+    const [listUser, setListUsers] = useState([])
     const navigate = useNavigate()
     const [searchTerm, setSearchTerm] = useState('');
     const [currentUser, setCurrentUser] = useState([])
     const [searchItems, setSearchItems] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(3);
+    const [itemsPerPage, setItemsPerPage] = useState(4);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
+    const [isSorted, setIsSorted] = useState(true)
     let selectedUsers = []
     const localStorageUser = JSON.parse(localStorage.getItem('admin'))
 
@@ -40,98 +39,106 @@ function ManagerUsers() {
     }
 
     useEffect(() => {
-        axios.get("http://localhost:4000/admin")
-            .then(function (response) {
-                //Xử lí khi thành công
-                dispatch(getListUser(response.data))
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
+        getListUsersFormAPI()
     }, [isChanged])
-
 
 
     useEffect(() => {
         if (searchTerm !== '') {
-            const results = listUserAPI.filter((item) =>
-                item.userName.toLowerCase().includes(searchTerm.toLowerCase()));
+            const results = listUser.filter((item) =>
+                item.username.toLowerCase().includes(searchTerm.toLowerCase()));
             setSearchItems(results)
             const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentUser(dataPaging)
         } else {
-            const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
+            const dataPaging = listUser.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentUser(dataPaging);
         }
-    }, [searchTerm, listUserAPI, currentPage]);
+    }, [searchTerm, listUser, currentPage]);
 
     useEffect(() => {
-        const dataPaging = listUserAPI.slice(indexOfFirstItem, indexOfLastItem);
-        setCurrentUser(dataPaging);
-    }, [currentPage, listUserAPI])
+        if (listUser.length > 0) {
+            const dataPaging = listUser.slice(indexOfFirstItem, indexOfLastItem);
+            setCurrentUser(dataPaging);
+        }
+    }, [currentPage, listUser])
+
+    const getListUsersFormAPI = async () => {
+        try {
+            const users = await getListUsers()
+            setListUsers(users)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
 
     const handleEdit = (id) => {
-        for (let i = 0; i < listUserAPI.length; i++) {
-            if (listUserAPI[i].id == id) {
-                setUsername(listUserAPI[i].userName)
-                setEmail(listUserAPI[i].email)
-                setPassword(listUserAPI[i].password)
-                setFirstName(listUserAPI[i].firstName)
-                setLastName(listUserAPI[i].lastName)
-                setAvatar(listUserAPI[i].avatar)
-                setCreatedAt(listUserAPI[i].createdAt)
-                setRole(listUserAPI[i].role)
-                setId(listUserAPI[i].id)
+        for (let i = 0; i < listUser.length; i++) {
+            if (listUser[i].id == id) {
+                setUserName(listUser[i].username)
+                setEmail(listUser[i].email)
+                setPassword(listUser[i].password)
+                setFirstName(listUser[i].first_name)
+                setLastName(listUser[i].last_name)
+                setAvatar(listUser[i].avatar)
+                setCreatedAt(listUser[i].created_at)
+                setRole(listUser[i].role)
+                setId(listUser[i].id)
+                setCreatedById(listUser[i].created_by_id)
+                setUpdatedAt(listUser[i].updated_at)
+                setUpdatedById(listUser[i].updated_by_id)
                 break
             }
         }
-
     }
-    const handleSave = () => {
-        setIsChanged(!isChanged)
-        return axios.put(`http://localhost:4000/admin/${id}`, {
-            "userName": userName,
+    const handleSave = async () => {
+        const formDataUpdate = {
+            "id": id,
+            "username": userName,
             "email": email,
             "password": password,
-            "firstName": firstName,
-            "lastName": lastName,
+            "first_name": firstName,
+            "last_name": lastName,
             "role": role,
             "avatar": avatar,
-            "createdAt": createdAt,
-            "id": id
-        })
-            .then((response) => { toast.success("Edit User Success") })
-            .catch((error) => { toast.error("Something went wrong!") })
+            "created_at": createdAt,
+            "updated_at": new Date(),
+            "created_by_id": localStorageUser.id,
+            "updated_by_id": localStorageUser.id
+        }
+        try {
+            //Gọi API thêm mới user
+            await updateUser(formDataUpdate)
+            toast.success(`Cập nhật thông tin tài khoản id ${formDataUpdate.id} thành công!`)
+        } catch (error) {
+            toast.error(error.response.data.error)
+        }
+        setIsChanged(!isChanged)
     }
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         setIsChanged(!isChanged);
         if (window.confirm("Bạn có chắc chắn muốn xóa người dùng này không?")) {
-            return axios.delete(`http://localhost:4000/admin/${id}`)
-                .then(function (response) {
-                    toast.success("Delete was successful!")
-                })
-                .catch(function (error) {
-                    toast.error("Something went wrong!")
-                })
+            try {
+                await deleteUser(id)
+                toast.success(`Xóa thông tin tài khoản id ${id} thành công!`)
+            } catch (error) {
+                toast.error(error.response.data.error)
+            }
         }
-
     }
 
     const handleDeleteAll = () => {
         if (window.confirm("Bạn có chắc chắn muốn xóa tất cả người dùng này không?")) {
-            selectedUsers.forEach(userId => {
-                axios.delete(`http://localhost:4000/admin/${userId}`)
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+            selectedUsers.forEach(async (userId) => {
+                try {
+                    await deleteUser(userId)
+                } catch (error) {
+                    toast.error(error.response.data.error)
+                }
             })
         }
-        toast.success("Delete all users chosen successfully")
+        toast.success(`Xóa các thông tin tài khoản đã chọn thành công!`)
         selectedUsers = []
         setIsChanged(!isChanged)
     }
@@ -153,6 +160,36 @@ function ManagerUsers() {
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
+
+    const handleSortUserName = async () => {
+        setIsSorted(!isSorted);
+        try {
+            const listUserSort = isSorted ? await getListUsersSortedUserName("ASC") : await getListUsersSortedUserName("DESC")
+            setListUsers(listUserSort)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
+
+    const handleSortRole = async () => {
+        setIsSorted(!isSorted);
+        try {
+            const listUserSort = isSorted ? await getListUsersSortedRole("ASC") : await getListUsersSortedRole("DESC")
+            setListUsers(listUserSort)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
+
+    const handleSortLastName = async () => {
+        setIsSorted(!isSorted);
+        try {
+            const listUserSort = isSorted ? await getListUsersSortedLastName("ASC") : await getListUsersSortedLastName("DESC")
+            setListUsers(listUserSort)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
     return (
         <>
             <Header />
@@ -165,12 +202,12 @@ function ManagerUsers() {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Username</th>
+                            <th>Username <span><i style={{ cursor: "pointer" }} onClick={handleSortUserName} class="fa-solid fa-sort"></i></span></th>
                             <th>Email</th>
                             <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Last Name <span><i style={{ cursor: "pointer" }} onClick={handleSortLastName} class="fa-solid fa-sort"></i></span></th>
                             <th>Avatar</th>
-                            <th>Role</th>
+                            <th>Role <span><i style={{ cursor: "pointer" }} onClick={handleSortRole} class="fa-solid fa-sort"></i></span></th>
                             <th>Created At</th>
                             <th>Actions</th>
                             <th><button className="btn btn-primary"
@@ -185,16 +222,16 @@ function ManagerUsers() {
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
                                         <td>
-                                            {item.userName}
+                                            {item.username}
                                         </td>
                                         <td>
                                             {item.email}
                                         </td>
                                         <td>
-                                            {item.firstName}
+                                            {item.first_name}
                                         </td>
                                         <td>
-                                            {item.lastName}
+                                            {item.last_name}
                                         </td>
                                         <td>
                                             <img src={item.avatar} alt="Ảnh của bạn" />
@@ -203,7 +240,7 @@ function ManagerUsers() {
                                             {item.role}
                                         </td>
                                         <td>
-                                            {item.createdAt}
+                                            {item.created_at}
                                         </td>
                                         <td>
                                             <button className="btn btn-warning me-2"
@@ -230,7 +267,7 @@ function ManagerUsers() {
                 {/* Hiển thị các nút phân trang */}
                 <Pagination
                     itemsPerPage={itemsPerPage}
-                    totalItems={searchTerm == '' ? listUserAPI.length : searchItems.length}
+                    totalItems={searchTerm == '' ? listUser.length : searchItems.length}
                     currentPage={currentPage}
                     paginate={paginate}
                 />
@@ -250,7 +287,7 @@ function ManagerUsers() {
                         <div className="modal-body row" style={{ padding: "0 50px" }}>
                             <label className="form-label mt-2">Username</label>
                             <input type="text" className="form-control" defaultValue={userName}
-                                onChange={(e) => setUsername(e.target.value)}
+                                onChange={(e) => setUserName(e.target.value)}
                             />
                             <label className="form-label mt-2">Email</label>
                             <input type="text" className="form-control" defaultValue={email}
