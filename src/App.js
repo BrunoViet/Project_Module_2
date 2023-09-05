@@ -13,6 +13,8 @@ import UserRegister from "./components/User/UserRegister";
 import CartUser from "./components/User/Cart/CartUser";
 import UserDetail from "./components/User/UserDetail";
 import Category from "./components/User/Category/Category";
+import UserOrder from "./components/User/UserOrder";
+import ManageOrderDetail from "./components/Admin/Order/ManageOrderDetail";
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/products" element={<ManagerProducts />} />
         <Route path="/order" element={<ManageOrder />} />
+        <Route path="/orderdetail" element={<UserOrder />} />
+        <Route path="/order_user/:id" element={<ManageOrderDetail />} />
       </Routes>
       <ToastContainer />
     </>

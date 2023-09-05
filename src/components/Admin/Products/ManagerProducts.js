@@ -1,164 +1,175 @@
-import { useSelector, useDispatch } from "react-redux"
 import Header from "../Header/Header"
 import "./ManagerProducts.css"
 import { useState, useEffect } from "react"
-import axios from "axios"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getListProductFromAPI } from "../../../actions/userAction"
 import { useNavigate } from "react-router"
 import Pagination from "../../../common/pagination/Pagination"
+import { addProduct, deleteProduct, getListProducts, updateProduct } from "../../../Service/productAPI"
 
 function ManagerProducts() {
-    const dispatch = useDispatch()
-    const listProductAPI = useSelector(state => state.user.listProductsFromAPI)
-    console.log(listProductAPI)
     const [productName, setProductName] = useState()
     const [productCode, setProductCode] = useState()
     const [category, setCategory] = useState()
-    const [createAt, setCreatedAt] = useState(new Date())
     const [price, setPrice] = useState()
     const [imgUrl, setImgUrl] = useState()
     const [description, setDescription] = useState()
     const navigate = useNavigate()
     const [isChanged, setIsChanged] = useState(false)
     const [id, setId] = useState()
-    let selectedProduct = []
     const [isEdit, setIsEdit] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(3);
-    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const [searchTerm, setSearchTerm] = useState('');
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const [currentItems, setCurrentItems] = useState([])
     const [searchItems, setSearchItems] = useState([])
+    const [listProducts, setListProducts] = useState([])
+    const [createAt, setCreateAt] = useState()
+    let selectedProduct = []
+    let errorResponse = ""
+    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
+
     if (!localStorageUser) {
         navigate("/login")
     }
 
     useEffect(() => {
-        setIsChanged(!isChanged)
-    }, [])
-
-    useEffect(() => {
-        axios.get("http://localhost:4000/product")
-            .then(function (response) {
-                //Xử lí khi thành công
-                dispatch(getListProductFromAPI(response.data))
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
+        getListProductsAPI()
     }, [isChanged])
 
     useEffect(() => {
-        const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+        const dataPaging = listProducts.slice(indexOfFirstItem, indexOfLastItem);
         setCurrentItems(dataPaging);
-    }, [currentPage, listProductAPI])
+    }, [currentPage, listProducts])
 
     useEffect(() => {
         if (searchTerm !== '') {
-            const results = listProductAPI.filter((item) =>
-                item.productName.toLowerCase().includes(searchTerm.toLowerCase()));
+            const results = listProducts.filter((item) =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()));
             setSearchItems(results)
             const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentItems(dataPaging)
         } else {
-            const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+            const dataPaging = listProducts.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentItems(dataPaging);
         }
-    }, [searchTerm, listProductAPI, currentPage]);
+    }, [searchTerm, listProducts, currentPage]);
 
-    const handleAdd = () => {
-        setIsChanged(!isChanged)
-        axios.post("http://localhost:4000/product", {
-            productName: productName,
-            productCode: productCode,
+    const getListProductsAPI = async () => {
+        try {
+            const products = await getListProducts()
+            setListProducts(products)
+        } catch (error) {
+            toast.error("Something went wrong!")
+        }
+    }
+
+    const handleAdd = async () => {
+        const formData = {
+            name: productName,
+            sku: productCode,
+            price: +price,
             category: category,
-            createAt: createAt,
-            price: price,
-            imgUrl: imgUrl,
             description: description,
-        })
-            .then(response => {
-                toast.success("Add new product successfully!");
-
-            })
-            .catch(error => {
-                toast.error("Something went wrong!")
-            })
-
-        document.getElementById("form").reset()
+            image: imgUrl,
+            created_at: new Date(),
+            created_by_id: 1,
+            updated_at: new Date(),
+            updated_by_id: ""
+        }
+        try {
+            await addProduct(formData)
+            toast.success(`Thêm sản phẩm ${productName} thành công!`)
+            document.getElementById("form").reset()
+            setProductName("")
+            setProductCode("")
+            setPrice("")
+            setCategory("")
+            setDescription("")
+            setImgUrl("")
+            setIsChanged(!isChanged)
+        } catch (error) {
+            errorResponse = error.response.data.errMessage
+            toast.error(error.response.data.errMessage)
+        }
     }
 
     const handleEdit = (id) => {
         setIsEdit(!isEdit)
-        listProductAPI.map(item => {
+        listProducts.map(item => {
             if (item.id === id) {
-                setProductName(item.productName)
-                setProductCode(item.productCode)
+                setProductName(item.name)
+                setProductCode(item.sku)
                 setPrice(item.price)
-                setImgUrl(item.imgUrl)
                 setCategory(item.category)
-                setCreatedAt(item.createdAt)
                 setDescription(item.description)
+                setImgUrl(item.image)
                 setId(item.id)
+                setCreateAt(item.created_at)
             }
         })
     }
 
-    const handleSaveEdit = () => {
-        setIsEdit(!isEdit)
-        setIsChanged(!isChanged)
-        axios.put(`http://localhost:4000/product/${id}`, {
-            "productName": productName,
-            "productCode": productCode,
+    const handleSaveEdit = async () => {
+        const formDataUpdate = {
+            "id": id,
+            "name": productName,
+            "sku": productCode,
+            "price": +price,
             "category": category,
-            "createAt": createAt,
-            "price": price,
-            "imgUrl": imgUrl,
             "description": description,
-            "id": id
-        })
-            .then((response) => {
-                toast.success("Edit Product Successfully!")
-            })
-            .catch((error) => { toast.error("Something went wrong!") })
-
-        document.getElementById("form").reset()
-
+            "image": imgUrl,
+            "created_at": createAt,
+            "created_by_id": localStorageUser.id,
+            "updated_at": new Date(),
+            "updated_by_id": localStorageUser.id
+        }
+        try {
+            await updateProduct(formDataUpdate)
+            toast.success(`Cập nhật sản phẩm ${productName} thành công!`)
+            document.getElementById("form").reset()
+            setProductName("")
+            setProductCode("")
+            setPrice("")
+            setCategory("")
+            setDescription("")
+            setImgUrl("")
+            setIsEdit(!isEdit)
+            setIsChanged(!isChanged)
+        } catch (error) {
+            errorResponse = error.response.data.message
+            toast.error(error.response.data.message)
+        }
     }
 
-    const handleDeleteProduct = (id) => {
-        setIsChanged(!isChanged)
+    const handleDeleteProduct = async (id) => {
         if (window.confirm("Bạn có chắc chắn xóa sản phẩm này không?")) {
-            axios.delete(`http://localhost:4000/product/${id}`)
-                .then((response) => { toast.success("Delete Product Successfully!") })
-                .catch((error) => { toast.error("Something went wrong!") })
+            try {
+                await deleteProduct(id)
+                toast.success(`Xóa sản phẩm thành công!`)
+                setIsChanged(!isChanged)
+            } catch (error) {
+                errorResponse = error.response.data.error
+                toast.error(error.response.data.error)
+            }
         }
-
     }
 
     const handleDeleteAll = () => {
         if (window.confirm("Bạn có chắc chắn muốn xóa tất cả sản phẩm này không?")) {
-            selectedProduct.forEach(productId => {
-                axios.delete(`http://localhost:4000/product/${productId}`)
-                    .then(function (response) {
-                        console.log(response);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+            selectedProduct.forEach(async (productId) => {
+                try {
+                    await deleteProduct(productId);
+                    setIsChanged(!isChanged)
+                } catch (error) {
+                    console.log(error);
+                }
             })
             toast.success("Delete all product chosen successfully")
-            selectedProduct = []
-            console.log(selectedProduct)
-            setIsChanged(!isChanged)
         }
-
-
+        selectedProduct = []
     }
 
     const handleChooseIdToDelete = (event) => {
@@ -200,11 +211,12 @@ function ManagerProducts() {
                             <th>ID</th>
                             <th>Product Name</th>
                             <th>Product Code</th>
-                            <th>Category</th>
                             <th>Price</th>
-                            <th>Image</th>
-                            <th>Create At</th>
+                            <th>Category</th>
                             <th>Description</th>
+                            <th>Image</th>
+                            <th>Created_at</th>
+                            <th>Created_by_id</th>
                             <th>Actions</th>
                             <th>
                                 <button className="btn btn-primary"
@@ -220,15 +232,16 @@ function ManagerProducts() {
                                     <>
                                         <tr key={index}>
                                             <td>{item.id}</td>
-                                            <td>{item.productName}</td>
-                                            <td>{item.productCode}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.sku}</td>
+                                            <td>{(item.unit_price).toLocaleString()} đ</td>
                                             <td>{item.category}</td>
-                                            <td>{(item.price).toLocaleString()} đ</td>
-                                            <td>
-                                                <img src={item.imgUrl} alt="Ảnh bị hư rồi" height={120} width={200} />
-                                            </td>
-                                            <td>{item.createAt}</td>
                                             <td>{item.description}</td>
+                                            <td>
+                                                <img src={item.image} alt="Ảnh bị hư rồi" height={120} width={200} />
+                                            </td>
+                                            <td>{item.created_at}</td>
+                                            <td>{item.created_by_id}</td>
                                             <td><button className="btn btn-warning me-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                 onClick={() => handleEdit(item.id)}
                                             >
@@ -256,7 +269,7 @@ function ManagerProducts() {
                 {/* Hiển thị các nút phân trang */}
                 <Pagination
                     itemsPerPage={itemsPerPage}
-                    totalItems={searchTerm == '' ? listProductAPI.length : searchItems.length}
+                    totalItems={searchTerm == '' ? listProducts.length : searchItems.length}
                     currentPage={currentPage}
                     paginate={paginate}
                 />
@@ -270,7 +283,7 @@ function ManagerProducts() {
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Products to List</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{isEdit ? "Update Product" : "Add Products to List"}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -288,20 +301,21 @@ function ManagerProducts() {
                                     />
                                 </div>
                                 <div className="mb-3">
+                                    <label for="price" className="col-form-label">Đơn giá:</label>
+                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={isEdit ? price : 0}
+                                        onChange={(e) => setPrice(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
                                     <label for="category" className="col-form-label">Phân loại sản phẩm:</label>
                                     <select value={category} className="form-control" id="category" onChange={(e) => setCategory(e.target.value)}>
-                                        <option value="DELL" selected>DELL</option>
+                                        <option value="" selected>Chọn thương hiệu sản phẩm</option>
+                                        <option value="DELL">DELL</option>
                                         <option value="ASUS">ASUS</option>
                                         <option value="ACER">ACER</option>
                                         <option value="ThinkPad">ThinkPad</option>
                                         <option value="Macbook">Macbook</option>
                                     </select>
-                                </div>
-                                <div className="mb-3">
-                                    <label for="price" className="col-form-label">Đơn giá:</label>
-                                    <input type="number" min={100000} className="form-control" id="price" defaultValue={isEdit ? price : ""}
-                                        onChange={(e) => setPrice(e.target.value)}
-                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label for="description" className="col-form-label">Mô tả:</label>
@@ -315,18 +329,23 @@ function ManagerProducts() {
                                         onChange={(e) => setImgUrl(e.target.value)}
                                     />
                                 </div>
-
                             </form>
                         </div>
                         <div className="modal-footer">
-                            {isEdit ? <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                                onClick={handleSaveEdit}
-                            >Edit Products</button> : <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
-                                onClick={handleAdd}
-                            >Add Products</button>}
-
-
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            {isEdit ?
+                                <>
+                                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal"
+                                        onClick={handleSaveEdit}
+                                    >Edit Products</button>
+                                    <button onClick={() => setIsEdit(!isEdit)} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </>
+                                :
+                                <>
+                                    <button type="button" className="btn btn-primary" data-bs-dismiss={errorResponse !== "" ? "" : 'modal'}
+                                        onClick={handleAdd}
+                                    >Add Products</button><button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>

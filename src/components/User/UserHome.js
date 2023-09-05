@@ -3,25 +3,19 @@ import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import "./UserHome.css"
+import "../User/css/UserHome.css"
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProductToCart } from "../../actions/cartActions";
-import { Link } from "react-router-dom";
 import Pagination from "../../common/pagination/Pagination";
-import { getListProductFromAPI } from "../../actions/userAction";
+import { getCategory, getListProducts } from "../../Service/productAPI";
 
 function UserHome() {
-    const listProductAPI = useSelector(state => state.user.listProductsFromAPI)
-    console.log(listProductAPI)
-    const userLogin = JSON.parse(localStorage.getItem('user'));
     const [listProduct, setListProduct] = useState([])
     const [listCategory, setListCategory] = useState([])
     const [searchTerm, setSearchTerm] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
     const [quantity, setQuantity] = useState()
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -31,60 +25,60 @@ function UserHome() {
     const [itemsPerPage, setItemsPerPage] = useState(6);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const userLogin = JSON.parse(localStorage.getItem('user'));
+
     if (!userLogin) {
         navigate("/userlogin")
     }
 
     useEffect(() => {
-        axios.get("http://localhost:4000/product")
-            .then(function (response) {
-                //Xử lí khi thành công
-                dispatch(getListProductFromAPI(response.data))
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
+        getListProductsFromAPI()
+        getCategoryFromAPI()
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:4000/category")
-            .then(function (response) {
-                //Xử lí khi thành công
-                setListCategory(response.data)
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
-    }, [])
-
-    useEffect(() => {
-        const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+        const dataPaging = listProduct.slice(indexOfFirstItem, indexOfLastItem);
         setCurrentProduct(dataPaging);
-    }, [currentPage, listProductAPI])
+    }, [currentPage, listProduct])
 
     useEffect(() => {
         if (searchTerm !== '') {
-            const results = listProductAPI.filter((item) =>
-                item.productName.toLowerCase().includes(searchTerm.toLowerCase()));
+            const results = listProduct.filter((item) =>
+                item.name.toLowerCase().includes(searchTerm.toLowerCase()));
             setSearchItems(results)
             const dataPaging = results.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentProduct(dataPaging)
         } else {
-            const dataPaging = listProductAPI.slice(indexOfFirstItem, indexOfLastItem);
+            const dataPaging = listProduct.slice(indexOfFirstItem, indexOfLastItem);
             setCurrentProduct(dataPaging);
         }
-    }, [searchTerm, listProductAPI, currentPage]);
+    }, [searchTerm, listProduct, currentPage]);
 
+    const getListProductsFromAPI = async () => {
+        try {
+            const products = await getListProducts()
+            setListProduct(products)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const getCategoryFromAPI = async () => {
+        try {
+            const category = await getCategory()
+            setListCategory(category)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     const handleAddToCart = (item) => {
         dispatch(addProductToCart({ ...item, quantity: Number(quantity) }))
         toast.success("Sản phẩm đã được thêm vào giỏ hàng của bạn")
         if (window.confirm("Bạn có muốn đặt hàng tiếp không?")) {
             navigate("/")
-            setQuantity()
+            setQuantity("")
         } else {
-            setQuantity()
+            setQuantity("")
             navigate('/cart')
         }
     }
@@ -144,7 +138,6 @@ function UserHome() {
                         height="700px"
 
                     />
-
                     <Carousel.Caption style={{ color: "pink", paddingBottom: "250px" }}>
                         <h3 style={{ fontSize: "50px" }}>Giờ vàng giảm giá</h3>
                         <p style={{ fontSize: "40px" }}>
@@ -162,13 +155,13 @@ function UserHome() {
                     return (
                         <>
                             <Card className="col-4 mb-3 mt-3" style={{ padding: "0 20px" }}>
-                                <Card.Img variant="top" src={item.imgUrl} height="300px" width="100px" />
+                                <Card.Img variant="top" src={item.image} height="300px" width="100px" />
                                 <Card.Body>
                                     <div>
-                                        <Card.Title style={{ fontSize: "40px", fontWeight: "bold", height: "400px" }}>{item.productName}</Card.Title>
+                                        <Card.Title style={{ fontSize: "40px", fontWeight: "bold", height: "400px" }}>{item.name}</Card.Title>
                                     </div>
                                     <Card.Text style={{ fontSize: "20px", color: "red", fontWeight: "bold" }}>
-                                        {item.price} đ
+                                        {item.unit_price} đ
                                     </Card.Text>
                                     <div className="mb-2">
                                         Số lượng <span><input
@@ -187,7 +180,7 @@ function UserHome() {
                 })}
                 <Pagination
                     itemsPerPage={itemsPerPage}
-                    totalItems={searchTerm == '' ? listProductAPI.length : searchItems.length}
+                    totalItems={searchTerm == '' ? listProduct.length : searchItems.length}
                     currentPage={currentPage}
                     paginate={paginate}
                 />
@@ -200,13 +193,13 @@ function UserHome() {
                     return (
                         <>
                             <Card className="col-4 mb-3 mt-3" style={{ padding: "0 20px" }}>
-                                <Card.Img variant="top" src={item.imgUrl} height="300px" width="100px" />
+                                <Card.Img variant="top" src={item.image} height="300px" width="100px" />
                                 <Card.Body>
-                                    <Card.Title style={{ fontSize: "40px", fontWeight: "bold", color: "red" }}>{item.name}</Card.Title>
+                                    <Card.Title style={{ fontSize: "40px", fontWeight: "bold", color: "red" }}>{item.category_name}</Card.Title>
                                     <Card.Text style={{ fontSize: "20px", color: "blue", fontWeight: "bold" }}>
                                         Xuất xứ: {item.original}
                                     </Card.Text>
-                                    <Button variant="primary" style={{ marginLeft: "130px" }} onClick={() => handleCategory(item.name)}>Sản phẩm</Button>
+                                    <Button variant="primary" style={{ marginLeft: "130px" }} onClick={() => handleCategory(item.category_name)}>Sản phẩm</Button>
                                 </Card.Body>
                             </Card>
                         </>

@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router";
 import Pagination from "../../../common/pagination/Pagination";
-import { deleteUser, getListUsers, getListUsersSortedLastName, getListUsersSortedRole, getListUsersSortedUserName, updateUser } from "../../../common/API/userAPI";
+import { deleteUser, getListUsers, getListUsersSortedLastName, getListUsersSortedRole, getListUsersSortedUserName, updateUser } from "../../../Service/userAPI";
 
 function ManagerUsers() {
     const [id, setId] = useState()
@@ -194,7 +194,12 @@ function ManagerUsers() {
         <>
             <Header />
             <div style={{ padding: "0 100px" }} className="content">
-                <h1 className="text-center" style={{ color: "red", position: "relative", top: "50px" }}>Manager User</h1>
+                <h1 className="text-center">Manager User</h1>
+                <div className="text-center mt-3">
+                    <button className="btn btn-primary me-2 mb-2" onClick={() => navigate("/register")}>
+                        Add User
+                    </button>
+                </div>
                 <div style={{ marginLeft: "44%", position: "relative", top: "70px" }} >
                     <input className="input-group-text" value={searchTerm} onChange={handleSearch} placeholder="Search" type="text" />
                 </div>
@@ -219,7 +224,7 @@ function ManagerUsers() {
                         {currentUser ? currentUser.map((item, index) => {
                             return (
                                 <>
-                                    <tr key={item.id}>
+                                    <tr hidden={item.role == 1} key={item.id}>
                                         <td>{item.id}</td>
                                         <td>
                                             {item.username}

@@ -1,21 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../Header/Header"
 import Table from 'react-bootstrap/Table';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { deleteProduct, resetCart } from "../../../actions/cartActions";
-import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router";
+import { addOrderDetail } from "../../../actions/orderActions";
+import { addOrder } from "../../../Service/orderAPI";
 
 function CartUser() {
     let cartList = useSelector(state => state.cart.listProducts)
-    const [quantity, setQuantity] = useState(1)
+    let orderList = useSelector(state => state.order.listOrderDetail)
     const [userName, setUserName] = useState()
     const [userPhone, setUserPhone] = useState()
     const [userAddress, setUserAddress] = useState()
+    const [note, setNote] = useState()
     const dispatch = useDispatch()
-    const [listOrder, setListOrder] = useState([])
     const navigate = useNavigate()
     const [isValid, setIsValid] = useState(false)
     let productCodeListCart = []
@@ -23,11 +24,12 @@ function CartUser() {
     let productPriceListCart = []
     let productImgListCart = []
     let totalPrice = 0
+    const userId = JSON.parse(localStorage.getItem('userId'))
     cartList.map(item => {
-        productPriceListCart.push(Number(item.quantity * item.price))
-        productCodeListCart.push(item.productCode)
-        productNameListCart.push({ name: item.productName, quantity: item.quantity })
-        productImgListCart.push({ imgUrl: item.imgUrl, quantity: item.quantity })
+        productPriceListCart.push(Number(item.quantity * item.unit_price))
+        productCodeListCart.push(item.sku)
+        productNameListCart.push({ name: item.name, quantity: item.quantity })
+        productImgListCart.push({ imgUrl: item.image, quantity: item.quantity })
     })
 
     productPriceListCart.forEach(item => {
@@ -39,24 +41,14 @@ function CartUser() {
         toast.success("Xoá thành công!!")
     }
 
-    useEffect(() => {
-        axios.get("http://localhost:4000/order")
-            .then(function (response) {
-                //Xử lí khi thành công
-                setListOrder(response.data)
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
-    }, [])
-
-    const handleOrder = () => {
+    const handleOrder = async () => {
         if (!userName && !userPhone && !userAddress) {
             toast.error("Vui lòng điền đầy đủ thông tin!")
             setIsValid(true)
         } else {
-            axios.post("http://localhost:4000/order", {
+            setIsValid(false)
+            const newOrderRedux = {
+                id: orderList.length ? orderList[orderList.length - 1].id + 1 : 1,
                 sku: productCodeListCart,
                 name: userName,
                 phone: userPhone,
@@ -66,20 +58,29 @@ function CartUser() {
                 createAt: new Date().toLocaleDateString(),
                 status: "Chờ xác nhận",
                 totalPrice: totalPrice
-            })
-                .then(response => {
-                    console.log(response)
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-
-            toast.success("Đặt hàng thành công. Cảm ơn Quý khách!")
-            dispatch(resetCart())
-            navigate("/")
-            setIsValid(false)
+            }
+            const newOrder = {
+                serial_number: Math.floor(Math.random() * 1000),
+                user_id: userId,
+                order_at: new Date(),
+                total_price: totalPrice,
+                status: "Chờ xác nhận",
+                note: note,
+                created_at: new Date(),
+                created_by_id: userId,
+                updated_at: "",
+                updated_by_id: ""
+            }
+            dispatch(addOrderDetail(newOrderRedux))
+            try {
+                await addOrder(newOrder)
+                toast.success("Đặt hàng thành công. Cảm ơn Quý khách!")
+                dispatch(resetCart())
+                navigate("/orderdetail")
+            } catch (error) {
+                console.log(error)
+            }
         }
-
     }
 
     const handleRedirect = () => {
@@ -108,15 +109,15 @@ function CartUser() {
                                 <>
                                     <tr key={item.id}>
                                         <td>{item.id}</td>
-                                        <td>{item.productName}</td>
+                                        <td>{item.name}</td>
                                         <td>
-                                            <img src={item.imgUrl} height={150} width={200} />
+                                            <img src={item.image} height={150} width={200} />
                                         </td>
-                                        <td>{Number(item.price).toLocaleString()} đ</td>
+                                        <td>{Number(item.unit_price).toLocaleString()} đ</td>
                                         <td>
                                             {item.quantity}
                                         </td>
-                                        <td>{Number(item.quantity * item.price).toLocaleString()} đ</td>
+                                        <td>{Number(item.quantity * item.unit_price).toLocaleString()} đ</td>
                                         <td>
                                             <button className="btn btn-danger" onClick={() => handleDelete(item.id)}>Xoá</button>
                                         </td>
@@ -177,11 +178,15 @@ function CartUser() {
                             <input type="text" className="form-control"
                                 onChange={(e) => setUserAddress(e.target.value)}
                             />
+                            <label className="form-label mt-2">Ghi chú</label>
+                            <input type="text" className="form-control"
+                                onChange={(e) => setNote(e.target.value)}
+                            />
                             <h2>Tổng tiền phải thanh toán là {(totalPrice).toLocaleString()} đ</h2>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss={isValid ? "modal" : ""}
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                 onClick={handleOrder}
                             >Xác nhận</button>
                         </div>

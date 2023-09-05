@@ -1,52 +1,34 @@
 import { useNavigate } from "react-router-dom"
 import "../Login/Login.css"
-import { useState, useEffect } from "react"
-import { ToastContainer, toast } from 'react-toastify';
+import { useState } from "react"
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from "axios";
-import { useDispatch } from "react-redux";
-import { getUserLoginInfo } from "../../actions/userAction";
+import { loginAPI } from "../../Service/authenAPI";
 
-function UserLogin() {
+function Login() {
     const [userName, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [listUsers, setListUsers] = useState([])
     const navigate = useNavigate()
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        axios.get("http://localhost:4000/admin")
-            .then(function (response) {
-                //Xử lí khi thành công
-                setListUsers(response.data)
-            })
-            .catch(function (error) {
-                //Xử lí khi lỗi
-                toast.error("Something went wrong!")
-            })
-    }, [])
-
-    const handleRedirect = () => {
-        navigate("/userregister")
-    }
-
-    const handleLogin = () => {
-        let isLogin = false
-        for (let i = 0; i < listUsers.length; i++) {
-            if (listUsers[i].userName === userName && listUsers[i].password === password) {
-                dispatch(getUserLoginInfo(listUsers[i]))
-                localStorage.setItem("user", JSON.stringify(listUsers[i]))
-                isLogin = true
-                break
+    const handleLogin = async () => {
+        const userLogin = {
+            username: userName,
+            password: password,
+            role: 2
+        }
+        try {
+            const token = await loginAPI(userLogin)
+            if (token) {
+                localStorage.setItem("user", JSON.stringify(token.key))
+                localStorage.setItem("userId", JSON.stringify(token.id))
+                toast.success("Đăng nhập thành công!")
+                navigate("/")
             }
-
+        } catch (error) {
+            console.log(error)
+            const errorResponse = error.response.data.errMessage
+            toast.error(errorResponse)
         }
-        if (!isLogin) {
-            toast.error("Username not found: " + userName)
-        } else {
-            navigate("/")
-        }
-
     }
 
     return (
@@ -67,12 +49,13 @@ function UserLogin() {
                         <label>Mật khẩu</label>
                     </div>
                     <div className="text-center">
-                        <button type="button" className="btn btn-danger me-3" onClick={handleLogin}>Đăng nhập</button>
-                        <button type="button" className="btn btn-warning" onClick={handleRedirect}>Đăng kí</button>
+                        <button type="button" className="btn btn-success me-3" onClick={handleLogin}>Đăng nhập</button>
+                        <button type="button" className="btn btn-danger" onClick={() => navigate("/userregister")}>Đăng kí</button>
                     </div>
                 </div>
             </div>
         </>
     )
 }
-export default UserLogin
+
+export default Login

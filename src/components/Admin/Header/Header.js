@@ -1,22 +1,26 @@
 import { useNavigate } from "react-router";
 import "./Header.css"
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { logoutAPI } from "../../../Service/authenAPI";
+import { toast } from "react-toastify";
 
 function Header() {
-    const localStorageUser = JSON.parse(localStorage.getItem('admin'))
+    const localStorageToken = JSON.parse(localStorage.getItem('admin'))
     const navigate = useNavigate()
 
-    if (!localStorageUser) {
+    if (!localStorageToken) {
         navigate("/login")
     }
 
-
-
-    const handleLogout = () => {
-        localStorage.removeItem('admin');
-
-        navigate("/login")
+    const handleLogout = async () => {
+        try {
+            const status = await logoutAPI({ key: localStorageToken })
+            localStorage.removeItem('admin');
+            toast.success(status)
+            navigate("/login")
+        } catch (error) {
+            console.log(error)
+        }
     }
     return (
         <>
@@ -38,7 +42,7 @@ function Header() {
                                 <Link to="/order" className="nav-link">Manager Order</Link>
                             </li>
                         </ul>
-                        <h3 className="text-primary me-3">{localStorageUser ? `Hello ${localStorageUser.username}!` : navigate("/login")}</h3>
+                        <h3 className="text-primary me-3">{localStorageToken ? `Hello Admin!` : navigate("/login")}</h3>
                         <button className="btn btn-success me-5" onClick={handleLogout}>
                             Logout
                         </button>

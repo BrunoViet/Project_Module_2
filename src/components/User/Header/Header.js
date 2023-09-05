@@ -1,16 +1,13 @@
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
     const userLogin = JSON.parse(localStorage.getItem('user'));
-    const navigate = useNavigate()
-    let userNameLogin = userLogin ? userLogin.userName : ""
-    const handleLogout = () => {
 
+    const navigate = useNavigate()
+
+    const handleLogout = () => {
         localStorage.removeItem('user')
         navigate("/userlogin")
     }
@@ -25,7 +22,7 @@ function Header() {
                     <Nav.Link style={{ width: "160px" }}><Link to="/cart" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Giỏ hàng</Link></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link style={{ width: "200px" }}><Link to="/cart" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Thanh toán</Link></Nav.Link>
+                    <Nav.Link style={{ width: "200px" }}><Link to="/orderdetail" className="nav-link" style={{ textDecoration: "none", fontSize: "20px", color: "black" }}>Thanh toán</Link></Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link style={{ width: "150px" }}>
@@ -39,7 +36,7 @@ function Header() {
                     </div>
                 </div>
                 <div style={{ marginLeft: "100px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <h3 className="text-primary me-3" >{userLogin ? "Hello " + userNameLogin + "!" : "Hello"}</h3>
+                    <h3 className="text-primary me-3" >{userLogin ? "Welcome!" : <button onClick={() => navigate('/userlogin')}>Login</button>}</h3>
                     <button className="btn btn-success" onClick={handleLogout}>
                         Logout
                     </button>

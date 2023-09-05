@@ -1,5 +1,4 @@
 export const getListUser = (data) => {
-    console.log(data);
     return {
         type: "GET_LIST_USER",
         payload: data

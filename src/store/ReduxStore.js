@@ -1,12 +1,14 @@
 import { createStore, combineReducers } from "redux"
 import { userReducers } from "../reducers/UserReducers"
 import { cartReducers } from "../reducers/CartReducers"
+import { orderReducers } from "../reducers/OrderReducers"
 export const fullStore = combineReducers({
 
     user: userReducers,
-    cart: cartReducers
+    cart: cartReducers,
+    order: orderReducers
 })
 
-const userStore = createStore(fullStore)
+const reduxStore = createStore(fullStore)
 
-export default userStore
+export default reduxStore
